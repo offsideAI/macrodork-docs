@@ -1,0 +1,162 @@
+{
+  "01_trunk_body": {
+    "body": "trunk_base",
+    "source_stl": [
+      "seeed_bearing__configuration__22x16x4",
+      "right_shell",
+      "banana_pcb_locker",
+      "trunk_base",
+      "xl330",
+      "power_support",
+      "np_f970",
+      "xl330",
+      "left_shell",
+      "seeed_bearing__configuration__22x16x4"
+    ],
+    "triangles": 131020
+  },
+  "02_left_hip_yaw-roll": {
+    "body": "yaw2roll",
+    "source_stl": [
+      "yaw2roll",
+      "xl330",
+      "seeed_bearing__configuration__22x16x4",
+      "bearing_roll"
+    ],
+    "triangles": 39920
+  },
+  "03_left_hip_roll": {
+    "body": "hip_l",
+    "source_stl": [
+      "seeed_bearing__configuration__22x16x4",
+      "hip_l"
+    ],
+    "triangles": 41940
+  },
+  "04_left_upper_leg": {
+    "body": "upper_leg_left",
+    "source_stl": [
+      "upper_leg_left",
+      "xl330",
+      "upper_leg_rigidity_plate",
+      "seeed_bearing__configuration__22x16x4",
+      "xl330"
+    ],
+    "triangles": 45072
+  },
+  "05_left_lower_leg": {
+    "body": "leg",
+    "source_stl": [
+      "leg",
+      "xl330"
+    ],
+    "triangles": 18902
+  },
+  "06_left_ankle_foot": {
+    "body": "ankle_left",
+    "source_stl": [
+      "sole_left",
+      "foot_left",
+      "seeed_bearing__configuration_default",
+      "ankle_left"
+    ],
+    "triangles": 61658
+  },
+  "07_neck_base": {
+    "body": "neck",
+    "source_stl": [
+      "neck",
+      "xl330",
+      "xl330",
+      "neck"
+    ],
+    "triangles": 11188
+  },
+  "08_neck_pitch": {
+    "body": "neck_pitch",
+    "source_stl": [
+      "neck_pitch",
+      "seeed_bearing__configuration__22x16x4"
+    ],
+    "triangles": 28090
+  },
+  "09_head_yaw-roll": {
+    "body": "yaw_roll_motion",
+    "source_stl": [
+      "yaw_roll_motion",
+      "xl330",
+      "seeed_bearing__configuration__22x16x4",
+      "seeed_bearing__configuration__22x16x4"
+    ],
+    "triangles": 51880
+  },
+  "10_head_assembly": {
+    "body": "jaw_soft",
+    "source_stl": [
+      "lens",
+      "face_part",
+      "xl330",
+      "jaw_soft",
+      "motor_support",
+      "top_head_shell",
+      "xl330",
+      "seeed_bearing__configuration_default",
+      "elec_rpi_robot_hat_pcb",
+      "soft_mouth_top",
+      "noenoeil",
+      "jaw",
+      "bottom_head_shell",
+      "m12_lens_holder",
+      "pcb__raspberry_pi_zero_2_w",
+      "speaker"
+    ],
+    "triangles": 159540
+  },
+  "11_right_hip_yaw-roll": {
+    "body": "bearing_roll",
+    "source_stl": [
+      "yaw2roll",
+      "xl330",
+      "bearing_roll",
+      "seeed_bearing__configuration__22x16x4"
+    ],
+    "triangles": 39920
+  },
+  "12_right_hip_roll": {
+    "body": "hip_l_2",
+    "source_stl": [
+      "hip_l",
+      "seeed_bearing__configuration__22x16x4"
+    ],
+    "triangles": 41940
+  },
+  "13_right_upper_leg": {
+    "body": "upper_leg_right",
+    "source_stl": [
+      "xl330",
+      "seeed_bearing__configuration__22x16x4",
+      "upper_leg_rigidity_plate",
+      "upper_leg_right",
+      "xl330"
+    ],
+    "triangles": 45072
+  },
+  "14_right_lower_leg": {
+    "body": "leg_2",
+    "source_stl": [
+      "xl330",
+      "leg"
+    ],
+    "triangles": 18902
+  },
+  "15_right_ankle_foot": {
+    "body": "ankle_right",
+    "source_stl": [
+      "ankle_right",
+      "sole_right",
+      "seeed_bearing__configuration_default",
+      "foot_right"
+    ],
+    "triangles": 61748
+  }
+}

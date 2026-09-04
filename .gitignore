@@ -1,0 +1,6 @@
+.DS_Store
+upstream/
+print/**/*.stl
+__pycache__/
+*.pyc
+_render_tmp.xml

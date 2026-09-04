@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Macrodork hardware diagrams</title>
+<style>
+/* ---------------------------------------------------------------------
+   Macrodork hardware diagrams - single-file source for the 7 PNGs and
+   the 11-page A3 PDF in assets/hw/.  Regenerate with $S/build.py (see
+   the notes at the end of this file).  Everything is inline: no fonts,
+   no images, no scripts.
+   --------------------------------------------------------------------- */
+:root{
+  --teal:#17877a; --orange:#d2461d; --red:#b3282b; --gold:#a8720f;
+  --purple:#7d3fe0; --grey:#5b6570; --blue:#2f6db3; --green:#2f7c5c;
+  --ink:#1a1a1a; --muted:#6b7280; --num:#2b7f93; --pagebg:#f2f4f0;
+  --line:#dadcd8; --dash:#b9bdb8;
+  --sans:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,Menlo,Consolas,"Liberation Mono",monospace;
+}
+@page{size:A3 landscape;margin:0}
+html,body{margin:0;padding:0;background:#fff}
+body{font-family:var(--sans);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:16px}
+code,.mono{font-family:var(--mono)}
+code{background:#e9ebe8;padding:1px 5px;border-radius:3px;font-size:.92em}
+b{font-weight:700}
+
+/* ---- pages ---------------------------------------------------------- */
+section.page{width:420mm;height:297mm;box-sizing:border-box;background:var(--pagebg);
+  page-break-after:always;break-after:page;overflow:hidden;position:relative;
+  padding:34px 0 0 229px}
+section.page:last-child{page-break-after:auto;break-after:auto}
+.col{width:1140px}
+h2.sec{margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid var(--line);font-size:25px;font-weight:700;letter-spacing:-.01em}
+h2.sec .n{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--num);margin-right:12px;position:relative;top:-3px}
+h3.sub{margin:26px 0 12px;font-size:18px;font-weight:700}
+p.intro{margin:16px 0 20px;max-width:840px;font-size:16px;line-height:1.65}
+p.intro + p.intro{margin-top:-10px}
+
+/* ---- card + figure -------------------------------------------------- */
+.card{background:#fff;border:1px solid var(--line);padding:20px 20px 18px}
+.figwrap{zoom:.5}
+.fig{width:2196px;background:#fff;position:relative}
+.fc{width:2000px;position:relative;zoom:1.098;font-size:20px}
+.note{border-top:1px solid var(--line);margin-top:16px;padding-top:14px;font-size:13.5px;line-height:1.65;color:#3a3f45}
+.note b{color:var(--ink)}
+.warn{color:#c47c00}
+
+/* ---- callouts ------------------------------------------------------- */
+.co{margin-top:22px;padding:15px 24px 16px;border-left:4px solid;box-sizing:border-box}
+.co h4{margin:0 0 8px;font-size:12px;letter-spacing:.02em}
+.co p{margin:0 0 6px;font-size:15.5px;line-height:1.6;max-width:780px}
+.co p:last-child{margin-bottom:0}
+.co.y{background:#fbf3e2;border-color:#b8860b}.co.y h4{color:#9a6b00}
+.co.b{background:#e8f0f5;border-color:#2c5d7a}.co.b h4{color:#24506b}
+.co.g{background:#e7f2ec;border-color:#2f7c5c}.co.g h4{color:#22664a}
+
+/* ---- tables --------------------------------------------------------- */
+table.tbl{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:14.5px}
+table.tbl th{background:#e9ebe8;white-space:nowrap;text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:#555;font-weight:700;padding:11px 14px;text-transform:uppercase}
+table.tbl td{padding:13px 14px;border-top:1px solid var(--line);vertical-align:top;line-height:1.5}
+table.tbl td.mono{font-family:var(--mono);font-size:14px}
+table.tbl tr.sub td{color:#666;font-size:13px;padding:8px 14px}
+table.tbl td.r{text-align:right}
+
+/* ---- cover ---------------------------------------------------------- */
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:#2b6b9b;font-weight:700;margin-top:58px}
+h1.cover{margin:22px 0 18px;font-size:46px;font-weight:800;letter-spacing:-.02em}
+p.lead{max-width:600px;font-size:17px;line-height:1.75;color:#333;margin:0 0 30px}
+.rule{border:0;border-top:2px solid #111;margin:0 0 42px}
+.legend{display:flex;gap:26px;font-family:var(--mono);font-size:13px;margin-bottom:34px;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:24px;height:3px;border-radius:2px}
+.stats{display:flex;gap:16px}
+.stat{flex:1;background:#fff;border:1px solid var(--line);padding:16px 18px 18px}
+.stat .l{font-size:12px;color:var(--muted)}
+.stat .v{font-size:23px;font-weight:800;margin:6px 0 8px}
+.stat .s{font-size:13px;color:#444}
+.foot{position:absolute;left:229px;width:1140px;bottom:34px;border-top:1px solid var(--line);padding-top:14px;font-size:13px;color:#555;line-height:1.6}
+
+/* ---- diagram primitives (inside .fc, 2000-px canvas) ---------------- */
+.ov{position:absolute;left:0;top:0;pointer-events:none}
+.bx{position:absolute;box-sizing:border-box;border:3px solid var(--ink);border-radius:7px;background:#fff;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8px 12px;line-height:1.35}
+.bx .t{font-weight:700;font-size:26px}
+.bx .m{font-family:var(--mono);font-size:19px;color:var(--grey);margin-top:6px}
+.bx .s{font-size:20px;color:var(--grey);margin-top:6px}
+.bx .sp{height:8px}
+.bx.c-teal{border-color:var(--teal)}.bx.c-orange{border-color:var(--orange)}.bx.c-red{border-color:var(--red)}
+.bx.c-gold{border-color:var(--gold)}.bx.c-purple{border-color:var(--purple)}.bx.c-grey{border-color:var(--grey)}
+.bx.c-green{border-color:var(--green)}.bx.c-blue{border-color:var(--blue)}
+.bx.dashed{border-style:dashed}
+.teal,.fc .teal{color:var(--teal)}.orange,.fc .orange{color:var(--orange)}.red,.fc .red{color:var(--red)}.gold,.fc .gold{color:var(--gold)}
+.purple,.fc .purple{color:var(--purple)}.grey,.fc .grey{color:var(--grey)}.green,.fc .green{color:var(--green)}.blue,.fc .blue{color:var(--blue)}.num,.fc .num{color:var(--num)}
+.lbl{position:absolute;white-space:nowrap;line-height:1.3}
+.lbl.m{font-family:var(--mono);font-size:20px}
+.lbl.bg{background:#fff;padding:0 5px}
+.lbl.b{font-weight:700;font-size:23px}
+.lbl.sm{font-size:20px}
+.lbl.c{transform:translateX(-50%)}
+.region{position:absolute;box-sizing:border-box;border:3px dashed var(--dash);border-radius:8px}
+.region .rl{position:absolute;left:26px;top:16px;font-size:22px;font-weight:700;color:var(--grey)}
+.region .rl .mono{font-weight:700}
+.hr{position:absolute;left:0;right:0;border-top:2px solid var(--line)}
+.cap{position:absolute;left:40px;right:42px;font-size:21px;color:#3a3f45;line-height:1.35}
+.cap b{color:var(--ink)}
+.h3{position:absolute;font-size:23px;font-weight:700;color:var(--grey)}
+.h3 .mono{font-weight:700}
+</style>
+</head>
+<body>
+
+<!--DEFS-->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="a-teal" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#17877a"/></marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="28" markerHeight="28" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d2461d"/></marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="26" markerHeight="26" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3282b"/></marker>
+    <marker id="a-gold" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="26" markerHeight="26" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a8720f"/></marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="24" markerHeight="24" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7d3fe0"/></marker>
+    <marker id="a-grey" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="22" markerHeight="22" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5b6570"/></marker>
+    <marker id="a-num" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="26" markerHeight="26" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2b7f93"/></marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9.5" refY="5" markerWidth="22" markerHeight="22" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker>
+  </defs>
+</svg>
+<!--/DEFS-->
+
+<!-- =====================================================================
+     PAGE 0 - cover
+     ===================================================================== -->
+<section class="page" id="p00">
+  <div class="col">
+    <div class="kicker">MACRODORK · ELECTRONICS</div>
+    <h1 class="cover">Macrodork hardware diagrams</h1>
+    <p class="lead">Five modules, two home-made boards, one bus. Every pin, address and register is taken from the official open-source hardware project and the runtime source code; none of it has been verified on real hardware.</p>
+    <hr class="rule">
+    <div class="legend">
+      <span><i style="background:var(--orange)"></i>Servo bus · half-duplex TTL 1 Mbps</span>
+      <span><i style="background:var(--red)"></i>+BATT 6.6–8.2 V</span>
+      <span><i style="background:var(--gold)"></i>+5V / +3V3</span>
+      <span><i style="background:var(--purple)"></i>I²C · 400 kHz</span>
+      <span><i style="background:var(--teal)"></i>MIPI CSI</span>
+      <span><i style="background:var(--grey)"></i>I²S audio</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="l">Bus devices</div><div class="v">16</div><div class="s">15 servos + 1 IMU board</div></div>
+      <div class="stat"><div class="l">Control cycle</div><div class="v">20 ms</div><div class="s">50 Hz, one read, one write</div></div>
+      <div class="stat"><div class="l">Home-made boards</div><div class="v">2</div><div class="s">HAT is open source / IMU board must be drawn</div></div>
+      <div class="stat"><div class="l">Policy network</div><div class="v">775 KiB</div><div class="s">×9 ONNX files</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 1 - 01 physical layout
+     ===================================================================== -->
+<section class="page" id="p01">
+  <div class="col">
+    <h2 class="sec"><span class="n">01</span>Where things live</h2>
+    <p class="intro">The easiest thing to get wrong: <b>the main board is not in the trunk, it is in the head.</b> Camera, main board and HAT all belong to the same MJCF body, <code>jaw_soft</code>; the camera sits about 13 mm from the centre of the main board with no joint in between. The trunk cavity is almost entirely filled by the two hip-yaw servos, and the battery hangs outside, below the rear of the body.</p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-01-->
+<div class="fig" id="fig-01">
+<div class="fc" style="height:1069px">
+  <svg class="ov" width="2000" height="1069" viewBox="0 0 2000 1069" fill="none">
+    <!-- camera -> main board (MIPI CSI) -->
+    <path d="M392,155 H548" stroke="#17877a" stroke-width="4" marker-end="url(#a-teal)"/>
+    <!-- 40-pin header -->
+    <path d="M660,207 V258 M930,207 V258" stroke="#a8720f" stroke-width="4"/>
+    <!-- I2S -->
+    <path d="M1030,290 H1090 V155 H1195" stroke="#5b6570" stroke-width="3" marker-end="url(#a-grey)"/>
+    <!-- i2c3 -->
+    <path d="M1030,310 H1195" stroke="#7d3fe0" stroke-width="4" marker-end="url(#a-purple)"/>
+    <!-- servo bus (orange), top to bottom -->
+    <path d="M695,362 V703" stroke="#d2461d" stroke-width="6"/>
+    <path d="M290,725 V703 H1235 V725 M695,703 V725" stroke="#d2461d" stroke-width="6"/>
+    <circle cx="695" cy="703" r="8" fill="#d2461d"/><circle cx="1235" cy="703" r="8" fill="#d2461d"/>
+    <!-- +BATT (dark red), bottom to top -->
+    <path d="M1715,700 V630 H837 V374" stroke="#b3282b" stroke-width="6" marker-end="url(#a-red)"/>
+  </svg>
+
+  <!-- head region -->
+  <div class="region" style="left:40px;top:42px;width:1918px;height:390px"><div class="rl">Head · MJCF body <span class="mono">jaw_soft</span></div></div>
+  <div class="bx c-teal" style="left:90px;top:113px;width:302px;height:134px">
+    <div class="t teal">IMX219 camera</div><div class="m teal">8 MP · MIPI CSI</div><div class="s teal">Mounted rotated 90°</div>
+  </div>
+  <div class="lbl m teal c" style="left:470px;top:122px">MIPI CSI</div>
+  <div class="lbl sm teal c" style="left:470px;top:176px">~13 mm · no joint</div>
+  <div class="bx" style="left:560px;top:105px;width:470px;height:102px">
+    <div class="t">Radxa Zero 3W&nbsp;&nbsp;&nbsp;main board</div><div class="m">RK3566 · 65 × 30 mm · NPU 0.8 TOPS</div>
+  </div>
+  <div class="lbl sm gold c" style="left:795px;top:220px;background:#fff;padding:0 6px">40-pin header</div>
+  <div class="bx" style="left:560px;top:258px;width:470px;height:104px">
+    <div class="t">RPI Robot HAT</div><div class="m" style="font-size:18px">65.0 × 30.9 mm · 4-layer · 113 SMD parts</div>
+  </div>
+  <div class="lbl m grey c" style="left:1125px;top:122px;font-size:19px">I²S</div>
+  <div class="lbl m purple c" style="left:1115px;top:280px;font-size:19px;background:#fff;padding:0 6px">i2c3 · 0x29</div>
+  <div class="bx c-grey" style="left:1205px;top:105px;width:365px;height:102px">
+    <div class="t grey" style="font-size:24px">Speaker 5 W + microphone</div><div class="m" style="font-size:18px">Wago terminals · on-board MEMS</div>
+  </div>
+  <div class="bx c-purple" style="left:1205px;top:258px;width:365px;height:104px">
+    <div class="t purple">ToF module</div><div class="m purple">VL53L5CX / L8CX · 8×8</div>
+  </div>
+
+  <!-- neck -->
+  <div class="hr" style="left:40px;right:42px;top:468px;border-top:3px dashed var(--dash)"></div>
+  <div class="hr" style="left:40px;right:42px;top:605px;border-top:3px dashed var(--dash)"></div>
+  <div class="lbl b grey" style="left:40px;top:528px;font-size:22px">Neck · 3 DoF</div>
+  <div class="lbl sm grey" style="left:240px;top:530px">Only these two bundles cross the neck</div>
+  <div class="lbl b orange" style="left:920px;top:506px">Servo bus ↓</div>
+  <div class="lbl sm orange" style="left:920px;top:540px">3 wires: V+ / GND / DATA</div>
+  <div class="lbl b red" style="left:1205px;top:506px">+BATT supply ↑</div>
+  <div class="lbl sm red" style="left:1205px;top:540px">Battery in the trunk, HAT in the head</div>
+
+  <!-- trunk region -->
+  <div class="region" style="left:40px;top:658px;width:1415px;height:312px"><div class="rl" style="top:8px">Trunk · <span class="mono">trunk_base</span>&nbsp;&nbsp;&nbsp;shell 80.9 × 64.0 × 41.8 mm</div></div>
+  <div class="bx" style="left:90px;top:725px;width:395px;height:203px">
+    <div class="t">Hip-yaw servos ×2</div><div class="m">XL330 · ID 10 / 20</div><div class="sp"></div>
+    <div class="s">These two fill most of the cavity</div><div class="s">No room for a main board</div>
+  </div>
+  <div class="bx c-orange" style="left:568px;top:725px;width:410px;height:203px">
+    <div class="t orange">imu_to_dxl</div><div class="m orange">ID 200 · 16th device on the bus</div><div class="sp"></div>
+    <div class="m orange">STM32G031 + LSM6DSV16X</div><div class="s orange">The only board drawn from scratch</div>
+  </div>
+  <div class="bx c-grey" style="left:1060px;top:725px;width:348px;height:203px">
+    <div class="t grey">Remaining servos ×13</div><div class="m">ID 11–14 · 21–24</div><div class="m" style="margin-top:2px">ID 30–34</div><div class="sp"></div>
+    <div class="s">legs / neck / head / jaw</div>
+  </div>
+  <div class="bx c-red dashed" style="left:1528px;top:700px;width:400px;height:200px">
+    <div class="t red">NP-F550 battery</div><div class="m red">2S · 6.6–8.2 V</div><div class="m red" style="margin-top:2px">38.6 × 20.6 × 70.8 mm</div><div class="sp"></div>
+    <div class="s red">Hangs outside, rear-bottom of the body</div><div class="s red">~40 mm hangs outside the shell</div>
+  </div>
+  <div class="lbl sm grey" style="left:1528px;top:922px">Dashed box = mounted outside the shell</div>
+
+  <div class="hr" style="left:40px;right:42px;top:1003px"></div>
+  <div class="cap" style="top:1025px">The bus is a 3-wire daisy chain (V+ / GND / DATA): power and data share one cable. The solid dots at the three tap points mean they all join the same bus.</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>How to read:</b> grey dashed boxes are physical regions, solid boxes are modules, a red dashed box means mounted <b>outside</b> the shell. <b>Orange</b> is the servo bus (top to bottom), <b>red</b> is battery power (bottom to top). The camera is only ~13 mm from the main board and shares its rigid body, so buy the shortest MIPI ribbon you can; what actually has to pass through the 3-DoF neck is the servo bus and the power wiring, and those two bundles are the flex-fatigue points. <b>Source:</b> <code>robot_walk.xml:235</code> (HAT), <code>:247</code> (main board), both inside the <code>jaw_soft</code> body.</div>
+    </div>
+    <div class="co y">
+      <h4>READ THIS BEFORE BUYING</h4>
+      <p>Because the main board lives in the head and the slot is only 65 × 30 mm, no larger board will fit - the LCSC Taishan Pi is <b>70 × 45 mm</b>, the same RK3566 but it does not go in, and a HAT still has to sit on top of it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 2 - 02 power distribution
+     ===================================================================== -->
+<section class="page" id="p02">
+  <div class="col">
+    <h2 class="sec"><span class="n">02</span>The battery feeds two rails; the servos run on raw battery voltage</h2>
+    <p class="intro">This is the most counter-intuitive thing on the whole HAT: <b>the servos are wired to raw battery voltage, with no step-down at all.</b> The XL330 is officially rated 3.7–6.0 V, recommended 5.0 V, yet here it gets 6.6–8.2 V. That is not a typo; it is a deliberate upstream choice - more stall torque, paid for in heat and lifetime.</p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-02-->
+<div class="fig" id="fig-02">
+<div class="fc" style="height:690px">
+  <svg class="ov" width="2000" height="690" viewBox="0 0 2000 690" fill="none">
+    <path d="M332,332 H458 M458,125 V548" stroke="#b3282b" stroke-width="6"/>
+    <path d="M458,125 H670" stroke="#b3282b" stroke-width="6" marker-end="url(#a-red)"/>
+    <path d="M458,250 H670" stroke="#b3282b" stroke-width="6" marker-end="url(#a-red)"/>
+    <path d="M458,548 H563" stroke="#b3282b" stroke-width="6" marker-end="url(#a-red)"/>
+    <path d="M700,548 H758" stroke="#b3282b" stroke-width="6" marker-end="url(#a-red)"/>
+    <path d="M1130,548 H1168" stroke="#a8720f" stroke-width="6" marker-end="url(#a-gold)"/>
+    <path d="M1460,548 H1555 V340" stroke="#a8720f" stroke-width="6"/>
+    <path d="M1555,340 H1638" stroke="#a8720f" stroke-width="6" marker-end="url(#a-gold)"/>
+    <path d="M1555,437 H1638" stroke="#a8720f" stroke-width="6" marker-end="url(#a-gold)"/>
+    <path d="M1555,537 H1638" stroke="#a8720f" stroke-width="6" marker-end="url(#a-gold)"/>
+  </svg>
+  <div class="bx c-red" style="left:40px;top:258px;width:292px;height:148px">
+    <div class="t red">NP-F550</div><div class="m red" style="font-weight:700">6.6 – 8.2 V</div><div class="s red">2S Li-ion</div>
+  </div>
+  <div class="lbl m red b" style="left:365px;top:298px;font-size:21px">+BATT</div>
+
+  <div class="bx c-red" style="left:682px;top:72px;width:435px;height:103px">
+    <div class="t red mono" style="font-size:25px">J13 / J14&nbsp;&nbsp;TTL 3P</div><div class="s red">JST EH 2.5 mm · the XL330s use these two</div>
+  </div>
+  <div class="bx c-red" style="left:568px;top:72px;width:120px;height:43px;padding:0;border-width:2px;border-radius:4px">
+    <div class="m red" style="margin:0;font-size:19px">TH1 100R</div>
+  </div>
+  <div class="bx c-red" style="left:682px;top:200px;width:435px;height:102px">
+    <div class="t red mono" style="font-size:25px">J3 / J11&nbsp;&nbsp;RS-485 4P</div><div class="m red">Direct +BATT · U8 SIT3088E driver</div>
+  </div>
+  <div class="lbl b red" style="left:1205px;top:172px">Servos - no step-down anywhere, marked 3 A max</div>
+
+  <div class="bx c-red" style="left:575px;top:498px;width:125px;height:100px">
+    <div class="m red" style="margin:0">C19</div><div class="m red">10µF/63V</div>
+  </div>
+  <div class="bx c-gold" style="left:770px;top:484px;width:360px;height:130px">
+    <div class="t gold mono" style="font-size:24px">U9 AP63205 + L4</div><div class="m gold">6.8 µH · 2 A · 1.1 MHz</div><div class="s gold" style="font-size:18px">The only switching regulator on the board</div>
+  </div>
+  <div class="bx c-gold" style="left:1180px;top:500px;width:280px;height:98px">
+    <div class="t gold mono" style="font-size:23px">Q2 · U10 LM5050</div><div class="s gold" style="font-size:18px">Ideal diode + shutdown detect</div>
+  </div>
+  <div class="lbl m gold b" style="left:1478px;top:516px;font-size:21px">+5V</div>
+  <div class="lbl sm gold" style="left:1665px;top:326px;font-size:22px">Main-board 40-pin header</div>
+  <div class="lbl sm gold" style="left:1665px;top:422px;font-size:22px">PAM8406D amplifier</div>
+  <div class="lbl sm gold" style="left:1665px;top:512px;font-size:22px">XC6206 → +1V8</div>
+  <div class="lbl sm gold" style="left:1665px;top:546px;font-size:19px">audio codec</div>
+
+  <div class="hr" style="left:40px;right:42px;top:633px"></div>
+  <div class="cap" style="top:652px">+3V3 goes the other way: the main board feeds it to the HAT over the 40-pin header; the HAT does not generate it itself.</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>Key evidence:</b> in the HAT's 47-line BOM there is <b>only one inductor (L4) and one buck (U9)</b>; FB1/FB2/FB3 are ferrite beads, not energy-storage inductors. So that 5 V rail can only be for the main board - a 2 A AP63205 could not drive 15 XL330s anyway (about 1.5 A each at stall).</div>
+    </div>
+    <h3 class="sub">Supply, charging and over-voltage protection</h3>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 3 - 02b supply, charging and protection
+     ===================================================================== -->
+<section class="page" id="p03">
+  <div class="col">
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-02b-->
+<div class="fig" id="fig-02b">
+<div class="fc" style="height:1106px">
+  <svg class="ov" width="2000" height="1106" viewBox="0 0 2000 1106" fill="none">
+    <path d="M380,130 H458" stroke="#5b6570" stroke-width="4" stroke-dasharray="12 9" marker-end="url(#a-grey)"/>
+    <path d="M623,182 V242 M310,292 V242 H1550 V292 M965,242 V292" stroke="#b3282b" stroke-width="6"/>
+    <circle cx="623" cy="242" r="8" fill="#b3282b"/>
+    <path d="M380,538 H423" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M765,538 H808" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M1150,538 H1193" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M1535,538 H1578" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <!-- voltage axis: x = 165 + V * 50 -->
+    <rect x="440" y="762" width="50" height="30" fill="#c9d9e6"/>
+    <rect x="585" y="695" width="580" height="80" fill="#f8ecd3" stroke="#a8720f" stroke-width="3" stroke-dasharray="8 6"/>
+    <rect x="495" y="695" width="90" height="80" fill="#efd6d8" stroke="#b3282b" stroke-width="3"/>
+    <path d="M165,778 H1915" stroke="#4a5560" stroke-width="4"/>
+    <path d="M165,778 v10 M415,778 v10 M665,778 v10 M915,778 v10 M1165,778 v10 M1415,778 v10 M1665,778 v10 M1915,778 v10" stroke="#4a5560" stroke-width="3"/>
+    <!-- markers below the axis -->
+    <path d="M465,778 V868" stroke="#b3282b" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M665,778 V868" stroke="#17877a" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M1415,778 V868" stroke="#2f7c5c" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M440,778 V925 M490,778 V925" stroke="#2f6db3" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M1165,778 V925" stroke="#a8720f" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M585,778 V985" stroke="#b3282b" stroke-width="3" stroke-dasharray="8 6"/>
+    <path d="M1665,778 V985" stroke="#2f7c5c" stroke-width="3" stroke-dasharray="8 6"/>
+  </svg>
+
+  <div class="h3" style="left:40px;top:38px">Charging - there is no charging circuit on the board</div>
+  <div class="bx c-grey dashed" style="left:40px;top:78px;width:340px;height:104px">
+    <div class="s" style="font-size:22px;margin:0">External cradle charger</div><div class="s">The battery comes off to charge</div>
+  </div>
+  <div class="bx c-red" style="left:470px;top:78px;width:308px;height:104px">
+    <div class="t red">NP-F550</div><div class="m red">2S · 6.6 – 8.4 V</div>
+  </div>
+  <div class="lbl sm gold" style="left:815px;top:96px;font-size:21px"><span class="warn">⚠</span> The stock HAT has no charging IC and no USB-C receptacle</div>
+  <div class="lbl sm gold" style="left:815px;top:132px;font-size:21px">Plugging in USB-C will not charge the robot - checked against the full BOM</div>
+  <div class="lbl b red" style="left:645px;top:208px;font-size:21px;font-family:var(--mono)">+BATT</div>
+  <div class="bx c-red" style="left:137px;top:292px;width:345px;height:90px">
+    <div class="m red" style="margin:0;font-size:24px">15 × servos</div><div class="m red">via TH1 100R · 3A max</div>
+  </div>
+  <div class="bx c-gold" style="left:775px;top:292px;width:380px;height:90px">
+    <div class="m gold" style="margin:0;font-size:24px">AP63205 → +5V</div><div class="s gold" style="font-size:18px">Main board → feeds +3V3 back to the HAT</div>
+  </div>
+  <div class="bx c-orange" style="left:1378px;top:292px;width:345px;height:90px">
+    <div class="m orange" style="margin:0;font-size:24px">imu_to_dxl</div><div class="s orange">Same rail as the servos ↓</div>
+  </div>
+
+  <div class="h3" style="left:40px;top:436px"><span class="mono">imu_to_dxl</span> input protection chain - it shares the bus with the servos and will see back-EMF</div>
+  <div class="bx" style="left:40px;top:482px;width:340px;height:112px">
+    <div class="s" style="color:var(--ink);font-size:22px;margin:0">3P connector into the board</div><div class="m">6.6 – 8.4 V</div>
+  </div>
+  <div class="bx c-gold" style="left:425px;top:482px;width:340px;height:112px;padding:4px 10px">
+    <div class="m gold" style="margin:0;font-size:23px;font-weight:700">PPTC 100 mA</div><div class="s gold" style="margin-top:2px;font-size:18px;line-height:1.3">A shorted board does not drag the bus down</div><div class="s gold" style="margin-top:2px;font-size:17px">(to be added)</div>
+  </div>
+  <div class="bx c-gold" style="left:810px;top:482px;width:340px;height:112px;padding:4px 10px">
+    <div class="m gold" style="margin:0;font-size:23px;font-weight:700">TVS SMAJ12A</div><div class="s gold" style="margin-top:2px;font-size:18px;line-height:1.3">Clamps at 19.9 V · next to the connector</div><div class="s gold" style="margin-top:2px;font-size:17px">(to be added)</div>
+  </div>
+  <div class="bx" style="left:1195px;top:482px;width:340px;height:112px">
+    <div class="s" style="color:var(--ink);font-size:22px;margin:0">C6 10µF/25V</div><div class="s">+ 100nF at the input pin</div>
+  </div>
+  <div class="bx c-green" style="left:1580px;top:482px;width:340px;height:112px;padding:4px 10px">
+    <div class="m green" style="margin:0;font-size:23px;font-weight:700">HT7533-1</div><div class="s green" style="margin-top:2px;font-size:18px;line-height:1.3">30 V operating / 33 V absolute max</div><div class="s green" style="margin-top:2px;font-size:17px">→ +3V3</div>
+  </div>
+
+  <div class="h3" style="left:40px;top:628px">Voltage window - the bottleneck at a glance</div>
+  <div class="lbl b red" style="left:482px;top:666px;font-size:21px">Battery 6.6–8.4 V</div>
+  <div class="lbl b gold c" style="left:875px;top:706px;font-size:21px">Servo back-EMF can lift the bus into this range</div>
+  <div class="lbl sm gold c" style="left:890px;top:742px;font-size:17px">Depends on cable inductance and commutation speed - must be measured</div>
+  <div class="lbl m grey c" style="left:165px;top:802px;font-size:19px">0</div>
+  <div class="lbl m grey c" style="left:415px;top:802px;font-size:19px">5</div>
+  <div class="lbl m grey c" style="left:665px;top:802px;font-size:19px">10</div>
+  <div class="lbl m grey c" style="left:915px;top:802px;font-size:19px">15</div>
+  <div class="lbl m grey c" style="left:1165px;top:802px;font-size:19px">20</div>
+  <div class="lbl m grey c" style="left:1415px;top:802px;font-size:19px">25</div>
+  <div class="lbl m grey c" style="left:1665px;top:802px;font-size:19px">30</div>
+  <div class="lbl m grey" style="left:1900px;top:802px;font-size:19px">35 V</div>
+  <div class="lbl sm red bg" style="left:135px;top:868px"><span class="warn">⚠</span> XL330 rated max 6.0 V (the stock design runs it over)</div>
+  <div class="lbl sm teal bg" style="left:690px;top:868px">C7 10 V (on the 3.3 V output side - sufficient)</div>
+  <div class="lbl sm green bg" style="left:1425px;top:868px">C6 25 V ✓</div>
+  <div class="lbl sm blue bg" style="left:505px;top:926px"><span style="color:#e0445a">✕</span> Common 3.3 V LDOs all top out here (shaded band, 5.5–6.5 V)</div>
+  <div class="lbl sm blue bg" style="left:505px;top:952px">- inside the battery range, they simply burn</div>
+  <div class="lbl sm gold bg" style="left:1175px;top:926px">TVS clamp 19.9 V ← spikes are held here</div>
+  <div class="lbl sm red bg" style="left:135px;top:984px"><span class="warn">⚠</span> Feetech HD-1910 max 8.4 V - exactly a full charge, zero margin</div>
+  <div class="lbl sm green bg" style="left:1385px;top:984px">HT7533-1 operating 30 V ✓ margin 3.5×</div>
+
+  <div class="hr" style="left:40px;right:42px;top:1028px"></div>
+  <div class="cap" style="top:1044px;font-size:19px;color:var(--grey)">Three lines of defence: a wide-input LDO (chosen) blocks sustained over-voltage · a TVS (to be added) clamps transient spikes · a PPTC (to be added) keeps a fault on this board from taking the whole bus down. A series diode guards against reverse polarity; it does nothing for forward over-voltage.</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>How to read:</b> above the axis are the <b>voltages that will actually occur</b>, below it are the <b>voltage ratings of each part</b>. Whenever a line below falls inside a range above, that part is the bottleneck. <b>Common 3.3 V LDOs all land inside the battery range - they simply burn.</b> <span class="warn">⚠</span> <b>The back-EMF magnitude is illustrative, not measured</b> - it depends on cable inductance and commutation speed; put a scope on it once the parts arrive.</div>
+    </div>
+    <div class="co b">
+      <h4>THIS EXPLAINS THE VOLTAGE ADAPTATION IN THE FIRMWARE</h4>
+      <p>Because the servos run straight off the battery, the same command produces very different torque between a full and a flat pack. At runtime the compensation is <code>scale × (7.4 / measured voltage EMA)</code>; without it the policy's behaviour drifts with the state of charge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 4 - 03 bus topology
+     ===================================================================== -->
+<section class="page" id="p04">
+  <div class="col">
+    <h2 class="sec"><span class="n">03</span>Sixteen devices on one bus</h2>
+    <p class="intro">This is the central argument of the whole design: <b>15 servos are daisy-chained on one three-wire bus, and the IMU also masquerades as a device on that bus.</b> So the main board issues a single <code>sync_read</code> per cycle and gets body attitude and all 15 joint angles back together - timestamps aligned by construction, with no software juggling of jitter between two separate data paths.</p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-03-->
+<div class="fig" id="fig-03">
+<div class="fc" style="height:743px">
+  <svg class="ov" width="2000" height="743" viewBox="0 0 2000 743" fill="none">
+    <path d="M380,120 H497" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M503,172 H386" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M905,145 H1033 V337 M137,337 H1930 M303,337 V420 M780,337 V420 M1255,337 V420 M1730,337 V420" stroke="#d2461d" stroke-width="6"/>
+    <circle cx="303" cy="337" r="8" fill="#d2461d"/><circle cx="780" cy="337" r="8" fill="#d2461d"/>
+    <circle cx="1255" cy="337" r="8" fill="#d2461d"/><circle cx="1730" cy="337" r="8" fill="#d2461d"/>
+  </svg>
+  <div class="bx" style="left:40px;top:80px;width:340px;height:130px">
+    <div class="t">Main-board UART</div><div class="m" style="color:var(--ink)">/dev/ttyS2</div><div class="m" style="margin-top:2px">GPIO14 Tx · GPIO15 Rx</div>
+  </div>
+  <div class="lbl m grey c" style="left:437px;top:92px;font-size:19px">Tx</div>
+  <div class="lbl m grey c" style="left:437px;top:182px;font-size:19px">Rx</div>
+  <div class="bx c-orange" style="left:503px;top:58px;width:402px;height:170px">
+    <div class="t orange">Half-duplex direction switch</div><div class="m orange">U5 74LVC1G08 (AND gate)</div><div class="m orange" style="margin-top:2px">U6 1G125 · U7 1G126 (tri-state)</div><div class="s orange">Direction derived automatically from Tx</div>
+  </div>
+  <div class="lbl m orange b" style="left:1068px;top:222px;font-size:22px">1 Mbps</div>
+  <div class="lbl sm orange" style="left:1068px;top:254px">single-wire half-duplex · 3-wire daisy chain</div>
+  <div class="bx" style="left:103px;top:420px;width:400px;height:165px">
+    <div class="t">Right leg</div><div class="m orange" style="font-size:26px;font-weight:700">ID 10 – 14</div><div class="s">hip yaw / hip roll / hip pitch</div><div class="s" style="margin-top:0">knee / ankle</div>
+  </div>
+  <div class="bx" style="left:578px;top:420px;width:400px;height:165px">
+    <div class="t">Left leg</div><div class="m orange" style="font-size:26px;font-weight:700">ID 20 – 24</div><div class="s">Mirror of the right leg</div>
+  </div>
+  <div class="bx" style="left:1053px;top:420px;width:400px;height:165px">
+    <div class="t">Neck · head · jaw</div><div class="m orange" style="font-size:26px;font-weight:700">ID 30 – 34</div><div class="s">The jaw is not in the policy action space</div>
+  </div>
+  <div class="bx c-orange" style="left:1528px;top:420px;width:402px;height:165px">
+    <div class="t orange">imu_to_dxl</div><div class="m orange" style="font-size:26px;font-weight:700">ID 200</div><div class="s orange">Disguised as the 16th "servo"</div><div class="m orange" style="margin-top:0;font-size:19px">register 124 · 12 bytes</div>
+  </div>
+  <div class="hr" style="left:40px;right:42px;top:645px"></div>
+  <div class="cap" style="top:668px">15 servos + 1 IMU board = 16 devices, all read back in a single sync_read.</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>Why not ordinary servos:</b> PWM servos are open-loop and cannot report their real angle, and the policy must know where every joint is right now. Bus servos have a built-in encoder and driver, and one UART handles all 15. <b>Source:</b> <code>JOINT_IDS</code> and <code>IMU_DXL_ID</code> in <code>duck-control/src/model.rs</code>.</div>
+    </div>
+    <div class="co y">
+      <h4 class="mono">THE 20 MS BUDGET IS TIGHTER THAN IT LOOKS</h4>
+      <p>The XL330 ships with <code>return_delay_time = 250</code>, i.e. <b>a 500 µs bus-turnaround delay per device.</b> Quoting the source: "Across 16 devices that is <b>8 ms per tick — 40% of a 20 ms budget</b>". The upstream fix is to write 0 to that register.</p>
+      <p>Whichever servo you switch to, this step has to be redone and measured - it is not one vendor's problem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 5 - 04 control cycle
+     ===================================================================== -->
+<section class="page" id="p05">
+  <div class="col">
+    <h2 class="sec"><span class="n">04</span>One cycle, 20 milliseconds</h2>
+    <p class="intro">The control loop has only five steps, and they happen in this order. The numbers here are the real sequence, not typographic decoration.</p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-04-->
+<div class="fig" id="fig-04">
+<div class="fc" style="height:572px">
+  <svg class="ov" width="2000" height="572" viewBox="0 0 2000 572" fill="none">
+    <path d="M380,205 H434" stroke="#2b7f93" stroke-width="5" marker-end="url(#a-num)"/>
+    <path d="M750,205 H804" stroke="#2b7f93" stroke-width="5" marker-end="url(#a-num)"/>
+    <path d="M1150,205 H1204" stroke="#2b7f93" stroke-width="5" marker-end="url(#a-num)"/>
+    <path d="M1520,205 H1576" stroke="#2b7f93" stroke-width="5" marker-end="url(#a-num)"/>
+  </svg>
+  <div class="lbl m num b c" style="left:210px;top:70px;font-size:22px">01</div>
+  <div class="lbl m num b c" style="left:595px;top:70px;font-size:22px">02</div>
+  <div class="lbl m num b c" style="left:980px;top:70px;font-size:22px">03</div>
+  <div class="lbl m num b c" style="left:1365px;top:70px;font-size:22px">04</div>
+  <div class="lbl m num b c" style="left:1770px;top:70px;font-size:22px">05</div>
+  <div class="bx c-orange" style="left:40px;top:115px;width:340px;height:178px">
+    <div class="t orange">One <span class="mono">sync_read</span></div><div class="s orange">16 devices read together</div><div class="s orange">Timestamps aligned by construction</div>
+  </div>
+  <div class="bx" style="left:440px;top:115px;width:310px;height:178px">
+    <div class="t">Assemble observation</div><div class="m" style="color:var(--ink);font-size:32px;font-weight:700">61 dims</div><div class="s">Attitude + joint angles</div>
+  </div>
+  <div class="bx c-num" style="left:810px;top:115px;width:340px;height:178px;border-color:var(--num)">
+    <div class="t num">ONNX policy inference</div><div class="m num">775 KiB · 9 in total</div><div class="m num">→ 14-dim action</div>
+  </div>
+  <div class="bx" style="left:1210px;top:115px;width:310px;height:178px">
+    <div class="t">Voltage compensation</div><div class="m">× (7.4 / measured EMA)</div><div class="s">Cancels battery sag</div>
+  </div>
+  <div class="bx c-orange" style="left:1582px;top:115px;width:376px;height:178px">
+    <div class="t orange">One <span class="mono">sync_write</span></div><div class="s orange">14 target angles sent</div>
+  </div>
+  <div class="hr" style="left:40px;right:42px;top:365px"></div>
+  <div class="h3" style="left:40px;top:392px;font-size:21px">Side paths running alongside the control loop</div>
+  <div class="bx c-purple" style="left:40px;top:435px;width:570px;height:90px">
+    <div class="t purple" style="font-size:24px">i2c3 400 kHz</div><div class="s purple">ToF 15 Hz + audio codec control</div>
+  </div>
+  <div class="bx c-teal" style="left:650px;top:435px;width:570px;height:90px">
+    <div class="t teal" style="font-size:24px">MIPI CSI</div><div class="s teal">IMX219 · vision detection on CPU or NPU</div>
+  </div>
+  <div class="bx c-grey" style="left:1260px;top:435px;width:570px;height:90px">
+    <div class="t grey" style="font-size:24px">i2s3_2ch</div><div class="m">MCLK 12 MHz · sysclk 12.288 MHz</div>
+  </div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>Why step 04 is necessary:</b> the servos run straight off the battery, and as it drops from 8.2 V to 6.6 V the same command produces noticeably different torque. Without compensation, the policy behaves visibly differently on a full versus a depleted pack.</div>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 6 - 05 IMU board internals
+     ===================================================================== -->
+<section class="page" id="p06">
+  <div class="col">
+    <h2 class="sec"><span class="n">05</span>The board you have to draw yourself</h2>
+    <p class="intro">Its entire job is three things: read the IMU, pack the data into 12 bytes, and hand those 12 bytes over when the host issues a <code>sync_read</code>. Upstream has not open-sourced this board, but <b>the protocol and register layout can be reconstructed in full from the runtime source</b> - the code is the spec.</p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-05-->
+<div class="fig" id="fig-05">
+<div class="fc" style="height:690px">
+  <svg class="ov" width="2000" height="690" viewBox="0 0 2000 690" fill="none">
+    <path d="M440,163 H579" stroke="#1a1a1a" stroke-width="4" marker-end="url(#a-ink)"/>
+    <path d="M985,163 H1102" stroke="#d2461d" stroke-width="7" marker-end="url(#a-orange)"/>
+    <path d="M1453,163 H1578" stroke="#d2461d" stroke-width="7" marker-end="url(#a-orange)"/>
+  </svg>
+  <div class="bx" style="left:40px;top:68px;width:400px;height:190px">
+    <div class="t mono">LSM6DSV16X</div><div class="s">ST 6-axis IMU</div><div class="sp"></div>
+    <div class="m num" style="font-weight:700;margin-top:0">SFLP fusion block</div><div class="s num">Quaternion straight out of the chip</div>
+  </div>
+  <div class="lbl m grey c" style="left:512px;top:130px;font-size:19px;color:var(--ink)">SPI</div>
+  <div class="lbl m grey c" style="left:512px;top:177px;font-size:17px">pins 12/13/14</div>
+  <div class="bx" style="left:585px;top:68px;width:400px;height:190px">
+    <div class="t mono">STM32G031F8P6</div><div class="s">Only moves and packs data</div><div class="sp"></div>
+    <div class="s" style="margin-top:0">It does not compute the quaternion</div><div class="s">It only frames the reply</div>
+  </div>
+  <div class="bx c-orange" style="left:1110px;top:90px;width:343px;height:145px">
+    <div class="t orange">Half-duplex buffer</div><div class="m orange">SN74LVC1G125</div><div class="s orange">3-wire connector, 2.5 mm pitch</div>
+  </div>
+  <div class="lbl b orange" style="left:1600px;top:132px;font-size:24px">Servo bus</div>
+  <div class="lbl m orange" style="left:1600px;top:170px">ID 200 · 1 Mbps</div>
+
+  <div class="h3" style="left:40px;top:330px;color:var(--ink);font-size:22px">12 bytes starting at register 124</div>
+  <div style="position:absolute;left:40px;top:380px;width:1917px;height:95px;display:flex;border:3px solid var(--ink);border-radius:7px;background:#fff;box-sizing:border-box">
+    <div style="flex:1;border-right:2px solid #999;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono num" style="font-size:24px;font-weight:700">gyro X</div><div class="mono grey" style="font-size:19px;margin-top:8px">int16 LE</div></div>
+    <div style="flex:1;border-right:2px solid #999;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono num" style="font-size:24px;font-weight:700">gyro Y</div><div class="mono grey" style="font-size:19px;margin-top:8px">int16 LE</div></div>
+    <div style="flex:1;border-right:2px solid #999;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono num" style="font-size:24px;font-weight:700">gyro Z</div><div class="mono grey" style="font-size:19px;margin-top:8px">int16 LE</div></div>
+    <div style="flex:1;border-right:2px solid #999;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono red" style="font-size:24px;font-weight:700">quat X</div><div class="mono grey" style="font-size:19px;margin-top:8px">fp16</div></div>
+    <div style="flex:1;border-right:2px solid #999;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono red" style="font-size:24px;font-weight:700">quat Y</div><div class="mono grey" style="font-size:19px;margin-top:8px">fp16</div></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="mono red" style="font-size:24px;font-weight:700">quat Z</div><div class="mono grey" style="font-size:19px;margin-top:8px">fp16</div></div>
+  </div>
+  <div class="lbl m grey" style="left:40px;top:486px;font-size:19px">0</div>
+  <div class="lbl m grey c" style="left:359px;top:486px;font-size:19px">2</div>
+  <div class="lbl m grey c" style="left:679px;top:486px;font-size:19px">4</div>
+  <div class="lbl m grey c" style="left:998px;top:486px;font-size:19px">6</div>
+  <div class="lbl m grey c" style="left:1318px;top:486px;font-size:19px">8</div>
+  <div class="lbl m grey c" style="left:1637px;top:486px;font-size:19px">10</div>
+  <div class="lbl m grey" style="left:1935px;top:486px;font-size:19px">12</div>
+  <div class="cap" style="top:540px;color:var(--ink)">Gyro range ±500 dps, 17.5 mdps/LSB.</div>
+  <div class="cap" style="top:588px;color:var(--ink)">Only x / y / z of the quaternion are sent - the host recovers w from the unit-quaternion constraint: w = √(1 − x² − y² − z²), saving 2 bytes.</div>
+  <div class="cap" style="top:640px;color:var(--grey)">Note: pins 12 / 13 / 14 in the diagram are CS / SCL / SDA, from ST DS13510 Rev 1 Table 1 (page 10).</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>Why the detour is worth it:</b> if the IMU were wired straight to the main board over I²C or SPI, attitude and joint angles would arrive over two different data paths, their sample instants would not line up, and a few milliseconds of jitter would contaminate the 61-dimensional observation directly. As a bus device, the problem does not exist at the hardware level.</div>
+    </div>
+    <div class="co g">
+      <h4>WORKS WITH BOTH FEETECH AND THE STOCK SERVOS: NO HARDWARE CHANGE</h4>
+      <p>The physical layers of the two protocols are <b>identical</b> - half-duplex single-wire TTL, 1 Mbps, three wires, 2.5 mm pitch connector. They differ only in packet format: Dynamixel V2 is <code>FF FF FD 00</code> + CRC-16, Feetech STS/SCS is <code>FF FF</code> + inverted checksum.</p>
+      <p>So <b>draw the hardware once and give the firmware two parsers</b>; it can even listen on the bus at power-up and check whether the third byte is <code>FD</code> to detect the protocol automatically - plug in and go.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 7 - 06 40-pin usage and key addresses
+     ===================================================================== -->
+<section class="page" id="p07">
+  <div class="col">
+    <h2 class="sec"><span class="n">06</span>40-pin usage and key addresses</h2>
+    <table class="tbl" style="margin-top:22px">
+      <thead><tr><th style="width:26%">Pin / bus</th><th style="width:36%">Purpose</th><th style="width:22%">Linux device</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">GPIO14 / GPIO15</td><td>Servo bus Tx / Rx</td><td class="mono">/dev/ttyS2 @ 1 Mbps</td><td class="mono">robotd.toml</td></tr>
+        <tr><td class="mono">GPIO02 / GPIO03</td><td>I²C - IMU, audio codec, Stemma</td><td class="mono">i2c3 @ 400 kHz</td><td class="mono">i2c3-pihat.dts</td></tr>
+        <tr><td class="mono">GPIO18 / 19 / 20 / 21</td><td>Audio PCM clock / frame sync / in / out</td><td class="mono">i2s3_2ch</td><td class="mono">aic3104-i2c3.dts</td></tr>
+        <tr><td class="mono">GPIO06</td><td>Shutdown detect</td><td class="mono">—</td><td class="mono">HAT schematic</td></tr>
+        <tr><td class="mono">GPIO22</td><td>Interrupt pin of the BMI088 on the HAT - <b>unused by software</b></td><td class="mono">—</td><td class="mono">i2c3-pihat.dts</td></tr>
+        <tr><td class="mono">MIPI CSI</td><td>IMX219 camera, mounted rotated 90°</td><td class="mono">radxa-zero3-rpi-camera-v2</td><td class="mono">setup-board.sh</td></tr>
+        <tr><td class="mono">i2c3 · 0x18</td><td>Audio codec TLV320AIC3104</td><td class="mono">—</td><td class="mono">i2c3-pihat.dts</td></tr>
+        <tr><td class="mono">i2c3 · 0x29 / 0x52</td><td>ToF, both addresses are tried</td><td class="mono">—</td><td class="mono">tof/src/main.rs</td></tr>
+        <tr><td class="mono">i2c3 · 0x19 / 0x68</td><td>BMI088 - populated but <b>marked dormant in software</b></td><td class="mono">—</td><td class="mono">i2c3-pihat.dts</td></tr>
+        <tr><td class="mono">Bus ID 200</td><td>imu_to_dxl, register 124, 12 bytes long</td><td class="mono">—</td><td class="mono">duck-control/model.rs</td></tr>
+      </tbody>
+    </table>
+    <div class="co b">
+      <h4>THIS TABLE IS THE CHECKLIST</h4>
+      <p>The upstream software is open source, so every address on the hardware has a counterpart in the code. <b>If they don't match, one side is wrong</b> - that is the cheapest verification step when replicating.</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 8 - 07 two routes: stock XL330 vs Feetech STS
+     ===================================================================== -->
+<section class="page" id="p08">
+  <div class="col">
+    <h2 class="sec"><span class="n">07</span>Two routes: stock XL330 versus Feetech STS</h2>
+    <p class="intro" style="margin-bottom:14px">The "IMU as the 16th device on the bus" architecture <b>holds on Feetech too</b> - because Feetech STS/SCS has its own bulk-read instruction, <code>SYNC READ</code> (<code>0x82</code>), used exactly the same way as on Dynamixel.</p>
+    <p class="intro" style="margin-top:0"><b>And the reply mechanism is the same on both sides.</b> Protocol V2 does have a <code>fast sync read</code> (<code>0x8A</code>) that merges every reply into one packet, but <b>the official runtime does not use it</b> - a repo-wide search for <code>fast_sync_read</code> / <code>0x8A</code> returns nothing, and <code>duck-control/src/bus.rs:236</code> calls the plain <code>sync_read_raw_data</code>. This is also consistent with the "500 µs <b>per device</b> × 16 devices = 8 ms" in the source - <b>if the replies were merged into one packet, the per-device delay would not be multiplied by 16.</b></p>
+    <div class="card">
+      <div class="figwrap">
+<!--FIG:fig-06-->
+<div class="fig" id="fig-06">
+<div class="fc" style="height:605px">
+  <div class="lbl b" style="left:40px;top:48px;font-size:23px">Stock&nbsp;&nbsp;&nbsp;XL330 · <span class="mono num">sync_read</span> (factory Return Delay = 250)</div>
+  <div class="bx" style="left:40px;top:113px;width:380px;height:62px;padding:0"><div class="s" style="color:var(--ink);margin:0;font-size:21px">Host instruction packet</div></div>
+  <div style="position:absolute;left:515px;top:113px;height:62px;display:flex">
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:37px;height:62px;background:#f8ecd3;border:2px dashed #c9a55a;box-sizing:border-box"></div><div style="width:48px;height:62px;border:3px solid #2b7f93;border-radius:6px;box-sizing:border-box"></div>
+  </div>
+  <div class="lbl sm gold c" style="left:1195px;top:198px">Dashed block = 500 µs idle wait per device (factory default; write 0 to remove it)</div>
+
+  <div class="lbl b" style="left:40px;top:282px;font-size:23px">Feetech&nbsp;&nbsp;&nbsp;STS/SCS · <span class="mono orange">sync_read 0x82</span> (Return Delay default 0)</div>
+  <div class="bx" style="left:40px;top:335px;width:380px;height:62px;padding:0"><div class="s" style="color:var(--ink);margin:0;font-size:21px">Host instruction packet</div></div>
+  <div style="position:absolute;left:515px;top:340px;height:55px;display:flex;gap:9px">
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+    <div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div><div style="width:48px;border:3px solid #d2461d;border-radius:6px;box-sizing:border-box"></div>
+  </div>
+  <div class="lbl sm orange c" style="left:968px;top:420px">16 independent status packets, back to back</div>
+
+  <div class="bx c-gold" style="left:1618px;top:240px;width:339px;height:80px;padding:4px">
+    <div class="s gold" style="margin:0;font-size:19px">Cumulative idle wait</div><div class="m gold" style="font-weight:700;font-size:26px;margin-top:2px">8 ms / cycle</div>
+  </div>
+  <div class="bx c-green" style="left:1618px;top:433px;width:339px;height:80px;padding:4px">
+    <div class="s green" style="margin:0;font-size:19px">Cumulative idle wait</div><div class="m green" style="font-weight:700;font-size:26px;margin-top:2px">0</div>
+  </div>
+
+  <div class="hr" style="left:40px;right:42px;top:548px"></div>
+  <div class="cap" style="top:567px;font-size:19px">Both rows use the same reply mechanism - the official runtime uses the plain sync_read, not V2's packet-merging fast sync read (a repo-wide search for 0x8A finds nothing). The difference is in the factory defaults.</div>
+</div>
+</div>
+<!--/FIG-->
+      </div>
+      <div class="note"><b>Source:</b> the Feetech side is read from <code>scservo_sdk/group_sync_read.py</code> (replies split packet by packet on <code>[0xFF, 0xFF, scs_id]</code>) and register 7 of the STS memory map; the stock side from <code>duck-control/src/bus.rs:236</code> and <code>model.rs:84-86</code>. <span class="warn">⚠</span> <b>Packet counts and spacing in both rows are drawn from the protocol as an illustration, not measured waveforms</b> - measure with an FE-URT-1 once the parts arrive.</div>
+    </div>
+    <div class="co g">
+      <h4>UNEXPECTED FINDING: OUT OF THE BOX, FEETECH IS ACTUALLY AHEAD</h4>
+      <p>Register <code>7 (0x07)</code> of the STS memory map, <b>Return Delay Time: default 0</b>, with the note "Not functional on STS".</p>
+      <p>The XL330 ships at <code>250</code>, i.e. <b>500 µs per device</b> - quoting the upstream source: "Across 16 devices that is <b>8 ms per tick — 40% of a 20 ms budget</b>" - and it has to be written to 0 by hand.</p>
+      <p><b>Since the reply mechanism is the same on both sides, this becomes the only substantive difference in the factory state - and it favours Feetech.</b> Of course, writing a 0 on the XL330 side erases it, so this is not "Feetech is faster", it is "Feetech has one trap fewer".</p>
+    </div>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 9 - protocol differences table
+     ===================================================================== -->
+<section class="page" id="p09">
+  <div class="col">
+    <h3 class="sub" style="margin-top:0">Protocol differences at a glance</h3>
+    <table class="tbl">
+      <thead><tr><th style="width:20%">Item</th><th style="width:48%">Dynamixel V2 · XL330</th><th>Feetech STS/SCS</th></tr></thead>
+      <tbody>
+        <tr><td>Physical layer</td><td colspan="2"><b>Identical</b> - half-duplex single-wire TTL, 3 wires (V+ / GND / DATA), 1 Mbps</td></tr>
+        <tr><td>Connector pitch</td><td class="mono">JST EH 2.5 mm</td><td class="mono">5264, also 2.5 mm</td></tr>
+        <tr><td>Header</td><td class="mono">FF FF FD 00</td><td class="mono">FF FF</td></tr>
+        <tr><td>Checksum</td><td class="mono">CRC-16</td><td class="mono">~sum (inverted sum)</td></tr>
+        <tr><td>Bulk read</td><td><span class="mono">sync read</span> (what upstream actually uses)<br>also <span class="mono">fast sync read 0x8A</span>, <b>unused</b></td><td class="mono">sync read 0x82</td></tr>
+        <tr><td>Reply scheme</td><td colspan="2"><b>Same</b> - one independent status packet per device</td></tr>
+        <tr><td>Bus turnarounds / cycle</td><td class="r mono">17 <span class="warn">⚠</span></td><td class="r mono">17 <span class="warn">⚠</span></td></tr>
+        <tr class="sub"><td colspan="3"><span class="warn">⚠</span> The turnaround count is inferred from the protocol (1 instruction + 16 replies), not measured</td></tr>
+        <tr><td>Factory return delay</td><td><b>250 = 500 µs / device, must be written to 0</b></td><td><b>Default 0</b>, and not functional on STS</td></tr>
+        <tr><td>ID range</td><td class="mono">0 – 252</td><td class="mono">0 – 253 (register 5)</td></tr>
+        <tr><td>Baud-rate setting</td><td>register <code>baud_rate = 3</code></td><td>register 6, <code>0 = 1M</code></td></tr>
+      </tbody>
+    </table>
+    <div class="co b">
+      <h4>ONE MORE REGISTER WORTH TUNING ON THE FEETECH SIDE</h4>
+      <p>Register <code>8 (0x08)</code> of the STS memory map, <b>Response Level</b>, default <b>1</b> - "reply to every command". Set it to <b>0</b> and only read and ping return a packet; ordinary write instructions no longer take up bus time.</p>
+      <p>This is the same kind of move as upstream writing 0 to <code>return_delay_time</code> on the XL330: <b>the factory defaults are for general use; a high-rate control loop has to tune them itself.</b></p>
+    </div>
+    <h3 class="sub">What switching to Feetech does to each module</h3>
+  </div>
+</section>
+
+<!-- =====================================================================
+     PAGE 10 - module impact table, HAT question, footer
+     ===================================================================== -->
+<section class="page" id="p10">
+  <div class="col">
+    <table class="tbl">
+      <thead><tr><th style="width:12%">Module</th><th style="width:15%">Impact</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Main board</td><td><b>Unchanged</b></td><td>Independent of the servo protocol</td></tr>
+        <tr><td class="mono">Camera / ToF</td><td><b>Unchanged</b></td><td>Each uses its own separate interface</td></tr>
+        <tr><td class="mono">HAT</td><td><b>No change at all</b></td><td>Feetech and XL330 have <b>identical physical layers</b> - 3-wire half-duplex TTL, 1 Mbps, 2.5 mm pitch connector. <b>J13 / J14 on the HAT are TTL 3P ports; Feetech servos plug straight in</b>, not a single wire needs to move</td></tr>
+        <tr><td class="mono">imu_to_dxl</td><td><b>Hardware architecture unchanged</b></td><td>Same physical layer, so one hardware revision is enough; the firmware detects the protocol from whether the third header byte is <code>FD</code>, with two parsing branches. Standardise the connector on 2.5 mm pitch and it works with both</td></tr>
+        <tr><td>Policy</td><td><b>Almost certainly needs retraining</b></td><td>Changing servos changes both the torque curve and the mass; the nine upstream ONNX files cannot be reused as they are. This is the single biggest piece of work on the whole route, and it has nothing to do with the protocol</td></tr>
+      </tbody>
+    </table>
+    <div class="co b">
+      <h4 class="mono">ANOTHER QUESTION: DOES THIS HAT NEED TO BE BUILT AT ALL?</h4>
+      <p>This is independent of which servo you pick; it is purely a cost call. The HAT is a 4-layer board with SMD assembly - prototyping starts at a few hundred yuan with a minimum order quantity - and <b>roughly half the circuitry on it is audio</b> (codec, amplifier, on-board microphone, speaker terminals).</p>
+      <p>If you are not doing voice features, that half of the board is wasted - in which case a bus adapter board costing twenty-odd yuan plus a buck module covers the two functions that are actually essential, "servo bus" and "power distribution", with the ToF hanging directly off i2c3. <b>The price is losing on-board audio and Pi HAT+ identification.</b></p>
+    </div>
+    <div class="co y">
+      <h4>DO THIS BEFORE DRAWING THE BOARD</h4>
+      <p>The turnaround counts above are <b>protocol facts</b>, but converting them to milliseconds is an <b>estimate</b>. The real number depends on the tri-state buffer switching speed, the inter-packet gaps and the actual register length being read - only a measurement on real hardware will tell.</p>
+      <p>First thing once the servos arrive: connect a debug board, run both read methods, and time one full round of 16 devices. <b>Until that number exists, the architectural decisions on the board are spinning in the void.</b></p>
+    </div>
+  </div>
+  <div class="foot">Derived from the publicly released MJCF model, STL meshes, open-source hardware project (<code>elec_RPI_Robot_HAT</code>, Apache-2.0) and runtime source; <b>not verified on real hardware</b>. Every pin, address, register and reference designator in these diagrams can be cross-checked against those sources.</div>
+</section>
+
+<!--
+  Regeneration notes
+  ------------------
+  PNGs:  each <div class="fig" id="fig-XX"> is a 2196-px-wide CSS box (the
+         inner .fc canvas is authored at 2000 px and zoomed by 1.098).  The
+         build script extracts the FIG:... block together with the DEFS block
+         into a white-background wrapper page and screenshots it with
+         headless Chrome at --window-size=2196,<height*1.098>.
+  PDF:   chrome --headless=new --disable-gpu --no-pdf-header-footer
+                --print-to-pdf=macrodork-hardware-diagrams.pdf file://.../diagrams.html
+-->
+</body>
+</html>

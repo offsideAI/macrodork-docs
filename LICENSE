@@ -1,0 +1,42 @@
+This repository is dual-licensed
+================================
+
+1. Apache License 2.0 - original code and tooling by this project
+
+     scripts/              rendering, export, hole-analysis, print-tree scripts
+     tools/                zero-dependency STL viewer
+
+   Apache-2.0 full text: https://www.apache.org/licenses/LICENSE-2.0
+
+
+2. CC BY-NC-SA 4.0 - derivative works of the upstream 3D models, and this
+   project's documentation
+
+     assembly-drawings/    renders and exploded views, generated from upstream MJCF + STL
+     cad/                  "assembled" STLs with world transforms applied
+                           (merged from upstream STLs)
+     print/                individual STLs generated locally from upstream by
+                           scripts/build_print_tree.py (git-ignored, not stored)
+     docs/hole_analysis.json
+                           hole geometry computed from upstream STLs
+     *.md, docs/*.md       all documentation and reverse-engineering text
+     build-log/, assets/   build photos and image assets, shot by and licensed
+                           from project participants
+
+   CC BY-NC-SA 4.0 full text:
+   https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+
+Notes
+-----
+
+- The canonical name is CC BY-NC-SA 4.0; upstream writes it "BY-SA-NC" - same licence.
+
+- Source excerpts quoted in the documentation (comments, constants, register
+  definitions) come from pollen-robotics/microduck under Apache-2.0, with file
+  paths cited at each quotation.
+
+- Non-commercial: CC BY-NC-SA forbids commercial use. This repository is for
+  study, research and personal replication only.
+
+Full attribution and compliance statement: see NOTICE.md
