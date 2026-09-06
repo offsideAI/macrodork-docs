@@ -1,0 +1,32 @@
+name: Longshot
+options:
+  bundleIdPrefix: ai.offside.avp
+  deploymentTarget:
+    visionOS: "2.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: ""
+    CODE_SIGN_STYLE: Automatic
+targets:
+  Longshot:
+    type: application
+    platform: visionOS
+    sources:
+      - path: Longshot
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ai.offside.avp.Longshot
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Longshot
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsMultipleScenes: YES
+        INFOPLIST_KEY_UIApplicationPreferredDefaultSceneSessionRole: UIWindowSceneSessionRoleApplication
+        INFOPLIST_KEY_NSHumanReadableCopyright: "OffsideRobotics 2026"
+        TARGETED_DEVICE_FAMILY: "7"
+        SUPPORTED_PLATFORMS: "xros xrsimulator"
+        ENABLE_PREVIEWS: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"

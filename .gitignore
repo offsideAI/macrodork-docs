@@ -1,5 +1,5 @@
 .DS_Store
-upstream/
+/upstream/
 print/**/*.stl
 __pycache__/
 *.pyc

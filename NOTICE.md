@@ -49,6 +49,7 @@ It is **derivative work under CC BY-NC-SA** and is released under the same licen
 | `docs/*.md`, `*.md` | All documentation and reverse-engineering text | **CC BY-NC-SA 4.0** |
 | `build-log/` photos | Physical build photos | **CC BY-NC-SA 4.0**, shot by and licensed from project participants |
 | `assets/` | Hardware diagrams (PNG/PDF) and their HTML source | Same as above |
+| `artifacts/asimov-1-budget-build.html` | Standalone study page: BOM and interactive 3D render of a 0.40-scale Asimov-1 derivative | Text **CC BY-NC-SA 4.0**; the embedded, decimated link meshes derive from [menloresearch/asimov-1](https://github.com/menloresearch/asimov-1) (**CERN-OHL-S-2.0**, Menlo Research), scaled by 0.40; loads Three.js from cdnjs and fonts from Google Fonts at view time |
 
 ## A Note on the License Name
 
