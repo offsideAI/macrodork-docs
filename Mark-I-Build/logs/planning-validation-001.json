@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-09-06T22:52:22.694863+00:00",
+  "markdown_documents_checked": 7,
+  "local_links": "pass",
+  "python_syntax": "pass",
+  "budget_total_USD_provisional": "790",
+  "core_apps": "missing_core_apps",
+  "unrun_checks": [
+    "Blender Python execution",
+    "FreeCAD geometry",
+    "rendering",
+    "CAD export/reimport",
+    "mechanical or physical validation"
+  ]
+}

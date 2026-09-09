@@ -1,0 +1,60 @@
+{
+  "recorded_at_utc": "2026-09-07T04:53:20.151744+00:00",
+  "status": "pass",
+  "images": [
+    {
+      "file": "renders/mark-i-r001-hero.png",
+      "dimensions_px": [
+        1200,
+        1500
+      ],
+      "bytes": 1960236,
+      "visually_inspected": true
+    },
+    {
+      "file": "renders/mark-i-r001-front.png",
+      "dimensions_px": [
+        1200,
+        1500
+      ],
+      "bytes": 1853147,
+      "visually_inspected": true
+    },
+    {
+      "file": "renders/mark-i-r001-rear.png",
+      "dimensions_px": [
+        1200,
+        1500
+      ],
+      "bytes": 1915117,
+      "visually_inspected": true
+    },
+    {
+      "file": "renders/mark-i-r001-head-detail.png",
+      "dimensions_px": [
+        1500,
+        1200
+      ],
+      "bytes": 2066291,
+      "visually_inspected": true
+    },
+    {
+      "file": "renders/mark-i-r001-head-concepts.png",
+      "dimensions_px": [
+        2100,
+        850
+      ],
+      "bytes": 1915344,
+      "visually_inspected": true
+    }
+  ],
+  "glb_scenes": [
+    "MarkI_R001"
+  ],
+  "glb_bytes": 3436700,
+  "glb_static": true,
+  "python_scripts_parsed": 9,
+  "local_links": "pass",
+  "blender_geometry_report": "mark-i-r001-geometry.json",
+  "blender_reimport_report": "mark-i-r001-glb-roundtrip.json"
+}

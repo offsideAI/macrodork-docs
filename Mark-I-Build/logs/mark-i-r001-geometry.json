@@ -1,0 +1,57 @@
+{
+  "scene": "MarkI_R001",
+  "neutral_frame": 1,
+  "scene_scale_m": 1,
+  "robot_bounds_min_m": [
+    -0.3490000069141388,
+    -0.3050000071525574,
+    -2.1855695031547384e-9
+  ],
+  "robot_bounds_max_m": [
+    0.3490000069141388,
+    0.23499999940395355,
+    1.5240000486373901
+  ],
+  "robot_dimensions_m": [
+    0.6980000138282776,
+    0.5400000065565109,
+    1.5240000508229596
+  ],
+  "height_target_m": 1.524,
+  "height_check_tolerance_m": 0.001,
+  "height_check": "pass",
+  "visible_robot_objects": 222,
+  "head_camera_baseline_study_m": 0.268,
+  "main_head_shell_dimensions_m": [
+    0.5,
+    0.24400000274181366,
+    0.25
+  ],
+  "yaw_limit_degrees": [
+    -90,
+    90
+  ],
+  "pitch_study_limit_degrees": [
+    -20,
+    25
+  ],
+  "roll_study_limit_degrees": [
+    -15,
+    15
+  ],
+  "animation_frames": [
+    1,
+    120
+  ],
+  "provenance": "Original reference-based concept, no measured Asimov import",
+  "unverified": [
+    "component fits",
+    "optics and stereo calibration",
+    "mass and torque",
+    "stability",
+    "wall thickness and manufacturing",
+    "battery runtime",
+    "BOM pricing",
+    "collision clearance through articulation"
+  ]
+}

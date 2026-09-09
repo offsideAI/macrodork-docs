@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-09-06T22:52:22.550677+00:00",
+  "machine": "arm64",
+  "macos_version": "26.4",
+  "python": "3.12.13 (main, May 27 2026, 15:47:46) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "python_executable": "/Users/coder/.pyenv/versions/3.12.13/bin/python3",
+  "commands": {
+    "brew": "/opt/homebrew/bin/brew",
+    "git": "/opt/homebrew/bin/git",
+    "python3": "/Users/coder/.pyenv/versions/3.12.13/bin/python3",
+    "blender": null,
+    "FreeCAD": null
+  },
+  "apps": {
+    "blender": {
+      "bundle": "/Applications/Blender.app",
+      "present": false
+    },
+    "freecad": {
+      "bundle": "/Applications/FreeCAD.app",
+      "present": false
+    }
+  },
+  "missing_core_apps": [
+    "blender",
+    "freecad"
+  ],
+  "status": "missing_core_apps",
+  "limits": "Inventory only; FreeCAD geometry, Blender Python, rendering and exchange checks are separate."
+}

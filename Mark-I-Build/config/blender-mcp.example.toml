@@ -1,0 +1,13 @@
+# Reviewable example only. Not loaded automatically from this directory.
+# Merge into Codex configuration OR use the documented `codex mcp add` command.
+[mcp_servers.blender]
+command = "/Users/coder/.local/bin/uvx"
+args = ["blender-mcp==1.9.1"]
+startup_timeout_sec = 60
+tool_timeout_sec = 180
+
+[mcp_servers.blender.env]
+BLENDER_HOST = "localhost"
+BLENDER_PORT = "9876"
+DISABLE_TELEMETRY = "true"
+BLENDER_MCP_SAFE_MODE = "1"

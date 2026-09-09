@@ -1,0 +1,18 @@
+{
+  "recorded_at_utc": "2026-09-06T23:57:35.195733+00:00",
+  "status": "pass",
+  "local_links_checked": 35,
+  "python_scripts_parsed": 3,
+  "output_files_checked": [
+    "cad/calibration-20mm-r001.FCStd",
+    "exports/calibration-20mm-r001.step",
+    "exports/calibration-20mm-r001.stl",
+    "blender/calibration-20mm-r001.blend",
+    "renders/calibration-20mm-r001.png"
+  ],
+  "calibration_reports_consistent": true,
+  "png_dimensions_px": [
+    640,
+    480
+  ]
+}

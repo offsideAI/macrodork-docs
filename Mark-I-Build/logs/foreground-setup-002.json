@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-09-06T23:20:36.134086+00:00",
+  "mode": "visible GUI on LG UltraFine",
+  "blender": {
+    "version": "5.2.1 LTS",
+    "first_launch": "complete",
+    "cycles_backend": "Metal",
+    "enabled_device": "Apple M5 Max (GPU - 32 cores)",
+    "auto_save_preferences": true,
+    "evidence": "logs/blender-metal-verified.png"
+  },
+  "freecad": {
+    "version": "1.1.3",
+    "first_launch": "complete",
+    "observed_first_run_units": "Standard (mm, kg, s, degrees)",
+    "evidence": [
+      "logs/freecad-first-run-units.png",
+      "logs/freecad-foreground.png"
+    ]
+  },
+  "headless_setup_sessions": 0,
+  "render_and_geometry_validation": "not performed"
+}

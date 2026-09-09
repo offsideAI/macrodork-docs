@@ -1,0 +1,65 @@
+{
+  "timestamp_utc": "2026-09-07T05:59:08.475800+00:00",
+  "status": "implemented; live checkout not configured",
+  "production_build": "PASS",
+  "server_tests": {
+    "passed": 15,
+    "live_stripe_api_used": false,
+    "signed_fixture_webhooks": true
+  },
+  "browser_tests": {
+    "passed": 9,
+    "headless": false,
+    "viewport_widths": [
+      320,
+      768,
+      1024,
+      1440
+    ],
+    "axe_violations": 0,
+    "checkout_offer_values": "synthetic fixtures only"
+  },
+  "format_and_git_diff_checks": "PASS",
+  "asset_provenance": [
+    {
+      "source": "Mark-I-Build/renders/mark-i-r001-hero.png",
+      "website": "macrodork-web/public/images/mark-1/hero.png",
+      "sha256": "6b6896ca33332266edf6ad2e6de0071011cd08ef37335ae02d1dc3c40ece95d0"
+    },
+    {
+      "source": "Mark-I-Build/renders/mark-i-r001-front.png",
+      "website": "macrodork-web/public/images/mark-1/front.png",
+      "sha256": "07ae0feba1ac03493a08c6578b8e490f9e87276aa34ae6cdb169eed5971dac24"
+    },
+    {
+      "source": "Mark-I-Build/renders/mark-i-r001-rear.png",
+      "website": "macrodork-web/public/images/mark-1/rear.png",
+      "sha256": "04e15a575da6108e9ec122f7415093bc02b812cbffa10dd7b228980bbf880d45"
+    },
+    {
+      "source": "Mark-I-Build/renders/mark-i-r001-head-detail.png",
+      "website": "macrodork-web/public/images/mark-1/head.png",
+      "sha256": "25f8143ee84f0e88294d167954b3601725ab75a3c23ca1e95f2d67ee9e16b6d4"
+    }
+  ],
+  "preview_url": "http://127.0.0.1:4242",
+  "public_preorder_response": {
+    "enabled": false
+  },
+  "visible_review": "LG UltraFine; corrected x=3976 after discovering added Samsung display; isolated headed Chrome review open",
+  "pending": [
+    "Deposit versus full payment",
+    "Approved amount/currency and price/tax/shipping treatment",
+    "Refund and delivery terms",
+    "Merchant identity/support/privacy notice and delivery countries",
+    "Stripe account credentials and test/live Price IDs",
+    "Production domain/hosting and persistent storage",
+    "Real Stripe test Checkout with account-specific webhooks and receipts"
+  ],
+  "not_performed": [
+    "Deployment",
+    "Live payment or external customer contact",
+    "Actual Stripe account checkout",
+    "Hardware capability verification"
+  ]
+}

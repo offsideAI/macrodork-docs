@@ -1,0 +1,8 @@
+id,subsystem,currency,target_amount,status,boundary
+B01,Complete expressive head,USD,140,unverified_target,"Display camera audio neck hardware shells carrier adapter local wiring"
+B02,Main compute and storage,USD,85,unverified_target,"Main board storage cooling; counted once regardless of location"
+B03,Body actuation and interfaces,USD,320,unverified_target,"Body motors controllers bus interfaces actuator-specific hardware; excludes neck"
+B04,Power,USD,65,unverified_target,"Battery charger regulation protection disconnect"
+B05,Body structure,USD,65,unverified_target,"Body shells brackets bearings general fasteners; excludes head and actuator kits"
+B06,System wiring and sensors,USD,25,unverified_target,"Remaining harness connectors and body sensors"
+B07,Parts-cost reserve,USD,90,unallocated_reserve,"Not a shipping tax assembly or tooling allowance"

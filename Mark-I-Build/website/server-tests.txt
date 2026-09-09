@@ -1,0 +1,27 @@
+
+> mark-1-web@0.1.0 test
+> node --test tests/server.test.js
+
+✔ configuration closes checkout by default and rejects incomplete or unsafe live setup (0.688625ms)
+✔ closed preorders expose no secrets and cannot create payments (30.719708ms)
+✔ public offer gets amount from Stripe and never exposes server keys (5.938875ms)
+✔ a recurring or mismatched price fails closed (2.848042ms)
+✔ untrusted origin, missing consent, stale terms and client amount injection are rejected (5.063625ms)
+✔ checkout uses a durable offer snapshot, server price, fixed URLs and idempotent retry (3.604959ms)
+✔ network retry reuses identical Stripe parameters and idempotency key (4.599084ms)
+✔ forged webhook cannot record an order (2.299791ms)
+✔ signed paid event records once; duplicate and late events cannot downgrade payment (5.405792ms)
+✔ unpaid completion is pending; async success confirms; failures remain unconfirmed (4.99475ms)
+✔ wrong amount or currency cannot mark a reservation paid (3.441667ms)
+✔ status requires private return token and reveals no customer personal information (4.170625ms)
+✔ database failure returns retryable webhook error without acknowledging payment (2.783583ms)
+✔ signed refunds update the ledger without late payment events undoing refunds (5.22675ms)
+✔ checkout and consent snapshot survive reopening persistent storage (5.22075ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 239.651333

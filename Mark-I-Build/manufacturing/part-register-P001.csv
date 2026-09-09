@@ -1,0 +1,43 @@
+planning_id,release,item,record_type,planned_quantity,quantity_basis,candidate_route,material_or_mpn,release_dependency,status
+MI-Q010,P0,Shell seam and alignment coupons,family,TBD,Test variants,Print,TBD,Shop process; seam design,PLANNING-NOT-RELEASED
+MI-Q020,P0,Fastener and insert coupons,family,TBD,Test variants,Print,TBD,Selected fasteners; wall design,PLANNING-NOT-RELEASED
+MI-Q030,P0,Fit and clearance coupons,family,TBD,Test variants,Print,TBD,Mating hardware; shop process,PLANNING-NOT-RELEASED
+MI-Q040,P0,Surface finish coupon,part,1,Initial sample,Print and finish,TBD,Material; finish specification,PLANNING-NOT-RELEASED
+MI-H010,P1,Front head shell segments,family,TBD,Segments per head,Print,TBD,Head direction; shop volume; packaging,PLANNING-NOT-RELEASED
+MI-H020,P1,Rear head shell and service hatch,family,TBD,Segments and hatch,Print,TBD,Cooling; service access; shop volume,PLANNING-NOT-RELEASED
+MI-H030,P1,Internal head carrier,family,TBD,Derived load-bearing pieces,Print or metal after load review,TBD,Measured payload; neck interface; load review,PLANNING-NOT-RELEASED
+MI-H040,P0/P1,Stereo camera cassette and mounts,family,TBD,One test eye in P0; stereo assembly in P1,Print or metal after alignment review,TBD,Camera MPNs; baseline; connector space; calibration,PLANNING-NOT-RELEASED
+MI-H050,P0/P1,Optical bezels,family,TBD,One test eye in P0; two eye positions in P1,Print,TBD,Camera field of view; left/right interchangeability,PLANNING-NOT-RELEASED
+MI-H060,P1,Amber arc trim or diffuser,family,TBD,Two eye positions; splits TBD,Print or purchased diffuser,TBD,Illumination decision; glare; quote,PLANNING-NOT-RELEASED
+MI-H070,P1,Pi and cooler mounts or duct,family,TBD,Packaging-derived parts,Print,TBD,Real board; cooler; connectors; thermal review,PLANNING-NOT-RELEASED
+MI-H080,P1,Speaker mount and grille,family,TBD,Audio packaging pieces,Print,TBD,Speaker dimensions; acoustic test,PLANNING-NOT-RELEASED
+MI-H090,P1,Microphone mount,part,1,One microphone module; conditional geometry,Print,TBD,Microphone MPN; vibration and fan noise,PLANNING-NOT-RELEASED
+MI-H100,P1,Neck cable guides and strain relief,family,TBD,Route-derived pieces,Print or purchased hardware,TBD,Cable bend radius; swept motion,PLANNING-NOT-RELEASED
+MI-N010,P1,Yaw bearing and actuator mounting plates,family,TBD,Bearing-supported turntable assembly,Metal candidate; loads determine route,TBD,Bearing and motor MPNs; torque; stops,PLANNING-NOT-RELEASED
+MI-N020,P1,Pitch yoke and supported shaft mounts,family,TBD,Nod assembly,Metal candidate; loads determine route,TBD,Head COM; bearings; actuator; cable route,PLANNING-NOT-RELEASED
+MI-N030,P1,Roll cradle and supported shaft mounts,family,TBD,Tilt assembly,Metal candidate; loads determine route,TBD,Head COM; bearings; actuator; cable route,PLANNING-NOT-RELEASED
+MI-N040,P1,Neck cosmetic covers,family,TBD,Removable covers,Print,TBD,Qualified joint geometry; swept clearance,PLANNING-NOT-RELEASED
+MI-J010,P1,Head bench fixture,assembly,1,Temporary test fixture; not installed in robot,Fabricate; leaf parts TBD,TBD,Payload; restraints; access; fixture stability,PLANNING-NOT-RELEASED
+MI-C010,P2,Chassis deck and internal frame,family,TBD,Structural pieces,Metal candidate; loads determine route,TBD,Payload; wheelbase; support polygon; load review,PLANNING-NOT-RELEASED
+MI-C020,P2,Drive motor and bearing mounts,family,TBD,Two drive positions; piece count TBD,Metal candidate; loads determine route,TBD,Selected drivetrain; shafts; fasteners,PLANNING-NOT-RELEASED
+MI-C030,P2,Support wheel mounting interfaces,family,TBD,Count follows drivetrain design,Fabricate; process TBD,TBD,Caster selection; sweep; ground clearance,PLANNING-NOT-RELEASED
+MI-C040,P2,Battery tray and retention,family,TBD,Battery restraint pieces,Fabricate; process TBD,TBD,Battery size and mass; retention loads; service,PLANNING-NOT-RELEASED
+MI-C050,P2,Control and power module mounts,family,TBD,Packaging-derived pieces,Print or metal after review,TBD,Real electronics; thermal and cable clearance,PLANNING-NOT-RELEASED
+MI-T010,P3,Torso front and side skins,family,TBD,Shop-dependent segments,Print,TBD,Stable frame; shop volume; seams,PLANNING-NOT-RELEASED
+MI-T020,P3,Torso rear and service panels,family,TBD,Shop-dependent segments,Print,TBD,Harness access; ventilation; seams,PLANNING-NOT-RELEASED
+MI-T030,P3,Base covers and bumpers,family,TBD,Shop-dependent segments,Print or purchased bumper material,TBD,Stable drivetrain; wheel clearance; selected material,PLANNING-NOT-RELEASED
+MI-A010,P3,Left rigid gesture arm shells,family,TBD,Shell segments for one arm,Print,TBD,Mass budget; shoulder mount; shop volume,PLANNING-NOT-RELEASED
+MI-A020,P3,Right rigid gesture arm shells,family,TBD,Shell segments for one arm,Print,TBD,Mass budget; shoulder mount; shop volume,PLANNING-NOT-RELEASED
+MI-A030,P3,Shoulder bearing mounts and arm supports,family,TBD,Two supported shoulder axes,Metal candidate; loads determine route,TBD,Arm COM; actuator and bearing selection,PLANNING-NOT-RELEASED
+MI-E010,P1,Raspberry Pi 5 8 GB,purchased,1,Per robot,Buy,Raspberry Pi 5 8 GB; exact sourcing SKU TBD,Supplier evidence; connectors; power,PLANNING-NOT-RELEASED
+MI-E020,P0/P1,Stereo cameras and lenses,purchased,2,Per robot; P0 test sample reused if suitable,Buy,TBD,Synchronized capture requirements; optics; Pi interface,PLANNING-NOT-RELEASED
+MI-E030,P1,Cooling storage and Pi supply modules,purchased family,TBD,Complete Pi subsystem,Buy,TBD,Power and thermal budget,PLANNING-NOT-RELEASED
+MI-E040,P1,Microphone speaker and audio electronics,purchased family,TBD,One microphone and speaker plus required interfaces,Buy,TBD,Audio interfaces; current draw; packaging,PLANNING-NOT-RELEASED
+MI-E050,P1,Neck actuation bearings and transmission,purchased family,TBD,Three motion axes; component counts TBD,Buy,TBD,Continuous torque; mass; range; shaft support,PLANNING-NOT-RELEASED
+MI-E060,P2,Drive and support wheel hardware,purchased family,TBD,Two powered wheel positions; supports TBD,Buy,TBD,Drive loads; speed; floor conditions; stability,PLANNING-NOT-RELEASED
+MI-E070,P2,Battery charger regulation and power protection,purchased family,TBD,Complete power subsystem,Buy,TBD,Duty cycle; voltage; current; usable energy,PLANNING-NOT-RELEASED
+MI-E080,P2/P3,Drive and shoulder control electronics,purchased family,TBD,Interfaces follow selected actuators,Buy,TBD,Motor current; controls; stop and lost-link behavior,PLANNING-NOT-RELEASED
+MI-E090,P3,Shoulder actuators and bearings,purchased family,TBD,Two powered shoulder axes,Buy,TBD,Arm load and continuous-duty data,PLANNING-NOT-RELEASED
+MI-W010,P1/P2/P3,Labeled wiring harnesses,family,TBD,Stage-specific harnesses; reconcile reused head harness,Assemble,TBD,Pinouts; lengths; current; connectors; strain relief,PLANNING-NOT-RELEASED
+MI-F010,P0/P1/P2/P3,Fasteners inserts and general hardware,purchased family,TBD,Count from final assemblies; no blanket kit assumption,Buy,TBD,Hole design; insert coupons; supplier sizes,PLANNING-NOT-RELEASED
+MI-PC010,Optional after bench proof,Custom interface or lighting PCB,optional family,TBD,Only if justified; excluded from initial print order,PCB/PCBA fabrication,TBD,Proven interfaces; schematic; layout; board review,PLANNING-NOT-RELEASED

@@ -1,29 +1,50 @@
-import { useCallback, useEffect, useState } from 'react'
-
-const KEY = 'offsiderobotics-theme'
-
-function readInitial() {
-  const stamped = document.documentElement.getAttribute('data-theme')
-  if (stamped === 'dark' || stamped === 'light') return stamped
+import { useEffect, useRef, useState } from "react";
+const key = "mark-1-theme";
+function savedPreference() {
   try {
-    const saved = localStorage.getItem(KEY)
-    if (saved === 'dark' || saved === 'light') return saved
-  } catch (e) { /* storage unavailable */ }
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    const value = localStorage.getItem(key);
+    return value === "light" || value === "dark" ? value : null;
+  } catch {
+    return null;
+  }
 }
-
-// Theme state. index.html stamps data-theme before first paint (no flash); this hook keeps
-// the attribute, the stored preference and the browser chrome colour in sync afterwards.
 export function useTheme() {
-  const [theme, setTheme] = useState(readInitial)
-
+  const [theme, setTheme] = useState(
+    () => document.documentElement.dataset.theme || "light",
+  );
+  const preference = useRef(savedPreference());
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', theme === 'dark' ? '#0B0C0E' : '#FF7A00')
-    try { localStorage.setItem(KEY, theme) } catch (e) { /* ignore */ }
-  }, [theme])
-
-  const toggle = useCallback(() => setTheme(t => (t === 'dark' ? 'light' : 'dark')), [])
-  return { theme, toggle }
+    document.documentElement.dataset.theme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", theme === "dark" ? "#151916" : "#f5f4ef");
+  }, [theme]);
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const syncSystem = () => {
+      if (!preference.current) setTheme(media.matches ? "dark" : "light");
+    };
+    const syncStorage = (event) => {
+      if (event.key !== key && event.key !== null) return;
+      preference.current = savedPreference();
+      setTheme(preference.current || (media.matches ? "dark" : "light"));
+    };
+    media.addEventListener("change", syncSystem);
+    window.addEventListener("storage", syncStorage);
+    return () => {
+      media.removeEventListener("change", syncSystem);
+      window.removeEventListener("storage", syncStorage);
+    };
+  }, []);
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    preference.current = next;
+    try {
+      localStorage.setItem(key, next);
+    } catch {
+      /* Theme still works for this visit. */
+    }
+    setTheme(next);
+  }
+  return { theme, toggleTheme };
 }

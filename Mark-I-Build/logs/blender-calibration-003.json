@@ -1,0 +1,84 @@
+{
+  "recorded_at_utc": "2026-09-06T23:27:45.757282+00:00",
+  "blender_version": "5.2.1 LTS",
+  "mode": "visible Blender GUI console",
+  "background": false,
+  "source": "exports/calibration-20mm-r001.stl",
+  "stl_import_scale": 0.001,
+  "scene_unit_scale": 1.0,
+  "dimensions_m": [
+    0.020000001415610313,
+    0.020000001415610313,
+    0.020000001415610313
+  ],
+  "bounds_after_import": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      20.0
+    ],
+    [
+      0.0,
+      20.0,
+      20.0
+    ],
+    [
+      0.0,
+      20.0,
+      0.0
+    ],
+    [
+      20.0,
+      0.0,
+      0.0
+    ],
+    [
+      20.0,
+      0.0,
+      20.0
+    ],
+    [
+      20.0,
+      20.0,
+      20.0
+    ],
+    [
+      20.0,
+      20.0,
+      0.0
+    ]
+  ],
+  "render_engine": "CYCLES",
+  "render_device": "GPU",
+  "cycles_backend": "METAL",
+  "devices": [
+    {
+      "name": "Apple M5 Max",
+      "type": "CPU",
+      "enabled": false
+    },
+    {
+      "name": "Apple M5 Max (GPU - 32 cores)",
+      "type": "METAL",
+      "enabled": true
+    }
+  ],
+  "dimension_check": "pass",
+  "render_status": "complete",
+  "render_size_px": [
+    640,
+    480
+  ],
+  "render_result_reported_size_px": [
+    0,
+    0
+  ],
+  "render_validation": "PNG signature and IHDR dimensions; visual inspection recorded separately",
+  "render_output": "renders/calibration-20mm-r001.png",
+  "render_saved_at_utc": "2026-09-06T23:52:45.738475+00:00"
+}

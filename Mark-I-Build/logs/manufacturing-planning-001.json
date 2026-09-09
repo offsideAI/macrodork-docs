@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-09-07T05:13:04.492581+00:00",
+  "scope": "P001 manufacturing planning documents, not mechanical qualification",
+  "result": "PASS",
+  "documents_checked": [
+    "Mark-I-Build/README.md",
+    "Mark-I-Build/NEXT-STEPS.md",
+    "Mark-I-Build/COST-PLAN.md",
+    "Mark-I-Build/manufacturing/PRINT-SHOP-RFQ-DRAFT.md",
+    "Mark-I-Build/manufacturing/PROTOTYPE-RELEASE-PLAN.md",
+    "Mark-I-Build/manufacturing/RELEASE-CHECKLIST.md"
+  ],
+  "local_links_checked": 33,
+  "register_records": 42,
+  "unique_ids": true,
+  "all_register_records_unreleased": true,
+  "all_checklist_gates_open": true,
+  "original_mock_hash_unchanged": true,
+  "manufacturing_exports_created": false,
+  "supplier_contact_or_order": false,
+  "pending_input": "Print shop or own-printer capabilities; question already asked",
+  "limits": [
+    "No manufactured-part CAD validation performed",
+    "No print-ready robot exports produced",
+    "No PCB design or Gerber output produced",
+    "No pricing or lead-time quotes obtained"
+  ]
+}

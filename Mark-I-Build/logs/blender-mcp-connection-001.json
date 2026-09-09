@@ -1,0 +1,68 @@
+{
+  "user_request": "Test the Blender connection",
+  "status": "pass_read_only",
+  "addon": {
+    "up_to_date": true,
+    "protocol_version": 5,
+    "expected_protocol_version": 5,
+    "addon_version": [
+      1,
+      6
+    ],
+    "capabilities": [
+      "drain_human_activity",
+      "execute_code",
+      "get_addon_info",
+      "get_object_info",
+      "get_scene_info",
+      "get_telemetry_consent",
+      "get_viewport_screenshot",
+      "get_world_state_snapshot",
+      "set_telemetry_consent"
+    ],
+    "blender_version": "5.2.1 LTS",
+    "source": "native",
+    "warning": null,
+    "telemetry_consent": false,
+    "update_command": "uvx blender-mcp install-addon",
+    "after_install": "If the addon file was updated: in Blender, Preferences \u2192 Add-ons \u2192 disable/enable 'Interface: Blender MCP', or restart Blender, then Start MCP Server."
+  },
+  "scene": {
+    "name": "Scene",
+    "object_count": 3,
+    "objects": [
+      {
+        "name": "Cube",
+        "type": "MESH",
+        "location": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Light",
+        "type": "LIGHT",
+        "location": [
+          4.08,
+          1.01,
+          5.9
+        ]
+      },
+      {
+        "name": "Camera",
+        "type": "CAMERA",
+        "location": [
+          7.36,
+          -6.93,
+          4.96
+        ]
+      }
+    ],
+    "materials_count": 2
+  },
+  "viewport_screenshot_received": true,
+  "model_modified": false,
+  "limitations": "Connection, metadata and viewport capture tested. Modeling commands and rendering through MCP not exercised.",
+  "recorded_at_utc": "2026-09-07T03:16:20.859852+00:00"
+}

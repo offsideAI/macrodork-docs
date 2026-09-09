@@ -3,28 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OffsideRobotics · MacroDork</title>
-    <meta name="description" content="MacroDork is an open, buildable bipedal robot duck. Assembly drawings, CAD, bill of materials, printable parts and a full electronics teardown. By OffsideRobotics, powered by Offside.AI." />
-    <meta name="theme-color" content="#FF7A00" />
-    <script>
-      (function () {
-        try {
-          var t = localStorage.getItem('offsiderobotics-theme');
-          if (t !== 'dark' && t !== 'light') t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', t);
-        } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
-      })();
-    </script>
+    <meta name="referrer" content="no-referrer" />
+    <title>Mark 1 — A new kind of company · Offside Robotics</title>
+    <meta
+      name="description"
+      content="Meet Mark 1, a friendly home companion robot in development. Explore the design, stereo camera eyes, expressive movement, prototype specifications and preorder information."
+    />
+    <meta name="theme-color" content="#f5f4ef" />
+    <script src="/theme.js"></script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Michroma&display=swap" />
-    <meta property="og:title" content="OffsideRobotics · MacroDork" />
-    <meta property="og:description" content="An open, buildable robot duck. Every part drawn, every board decoded." />
-    <meta property="og:image" content="/images/drawings/04_three_quarter.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Meet Mark 1 · Offside Robotics" />
+    <meta
+      property="og:description"
+      content="A new kind of company. Discover our companion robot concept, designed with character and built with curiosity."
+    />
+    <meta property="og:image" content="/images/mark-1/hero.png" />
+    <meta
+      property="og:image:alt"
+      content="Mark 1 silver companion robot concept render"
+    />
   </head>
   <body>
     <div id="root"></div>
+    <noscript
+      >Mark 1 is a companion robot in development by Offside Robotics. Enable
+      JavaScript to explore the concept renders, target specifications and
+      current preorder availability.</noscript
+    >
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

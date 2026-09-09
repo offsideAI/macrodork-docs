@@ -1,2 +1,7 @@
-*.stl binary
+*.stl filter=lfs diff=lfs merge=lfs -text
 *.png binary
+Mark-I-Build/logs/*.png filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.FCStd filter=lfs diff=lfs merge=lfs -text
+*.step filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text

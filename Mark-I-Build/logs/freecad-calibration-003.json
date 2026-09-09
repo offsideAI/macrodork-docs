@@ -1,0 +1,34 @@
+{
+  "recorded_at_utc": "2026-09-06T23:25:44.366190+00:00",
+  "freecad_version": [
+    "1",
+    "1",
+    "3",
+    "20260725 (Git shallow)",
+    "Unknown",
+    "2026/07/25 04:52:02",
+    "grafted,grafted",
+    "145529fe741292ff0b3977a01195bf0247425794"
+  ],
+  "mode": "visible FreeCAD GUI console",
+  "cube_mm": [
+    20,
+    20,
+    20
+  ],
+  "volume_mm3": 7999.999999999998,
+  "step_reimport_valid": true,
+  "step_reimport_volume_mm3": 7999.999999999998,
+  "stl_reimport_dimensions_mm": [
+    20.0,
+    20.0,
+    20.0
+  ],
+  "stl_facets": 12,
+  "outputs": [
+    "cad/calibration-20mm-r001.FCStd",
+    "exports/calibration-20mm-r001.step",
+    "exports/calibration-20mm-r001.stl"
+  ],
+  "status": "pass"
+}

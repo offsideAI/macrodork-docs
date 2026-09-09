@@ -1,0 +1,18 @@
+
+> mark-1-web@0.1.0 test:browser
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+  ✓  1 tests/website.spec.js:6:3 › layout, assets and accessibility at 320px (1.2s)
+  ✓  2 tests/website.spec.js:6:3 › layout, assets and accessibility at 768px (876ms)
+  ✓  3 tests/website.spec.js:6:3 › layout, assets and accessibility at 1024px (844ms)
+  ✓  4 tests/website.spec.js:6:3 › layout, assets and accessibility at 1440px (1.2s)
+  ✓  5 tests/website.spec.js:48:1 › mobile menu, keyboard access, gallery and FAQ work (612ms)
+  ✓  6 tests/website.spec.js:77:1 › offer error can recover to the closed state (550ms)
+  ✓  7 tests/website.spec.js:108:1 › enabled test offer requires consent and handles checkout failure without false confirmation (896ms)
+  ✓  8 tests/website.spec.js:144:1 › success URL alone never confirms payment; verified status does (3.3s)
+  ✓  9 tests/website.spec.js:163:1 › cancel return clearly reports no confirmed order (674ms)
+
+  9 passed (11.1s)

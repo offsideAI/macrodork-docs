@@ -1,19 +1,37 @@
-import { SPEC_POINTS } from '../data.js'
-
+import { SPECS } from "../data.js";
 export default function Spec() {
   return (
-    <section className="spec" id="spec">
-      <div className="wrap">
-        <h2 className="h1" data-reveal>25 cm. 737 g. <span>14+1 DoF.</span></h2>
-        <div className="points">
-          {SPEC_POINTS.map((p, i) => (
-            <div className="point" key={p.title} data-reveal data-delay={String(i % 3)}>
-              <h3>{p.title}</h3>
-              <p>{p.body}</p>
+    <section
+      className="spec-section"
+      id="specifications"
+      aria-labelledby="spec-title"
+    >
+      <div className="wrap spec-layout">
+        <div className="spec-intro">
+          <p className="eyebrow">THE SHAPE OF WHAT’S NEXT</p>
+          <h2 id="spec-title">
+            Big character.
+            <br />
+            <em>Thoughtful hardware.</em>
+          </h2>
+          <p>Our starting point for the first working prototype.</p>
+          <div className="height-stat">
+            60<span>inches tall</span>
+          </div>
+          <p className="small-note">
+            Design targets, subject to engineering and testing. Runtime depends
+            on the final hardware and workload.
+          </p>
+        </div>
+        <dl className="spec-list">
+          {SPECS.map(([label, value]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
-  )
+  );
 }
